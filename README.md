@@ -1,6 +1,6 @@
 # Research Quest System
-- [ ] Quests management
-- [ ] Quests timer
+- [ ] Quest management
+- [ ] Quest timer
 - [ ] Quest triggers
 - [ ] Quest rewards
 - [ ] Quest content
