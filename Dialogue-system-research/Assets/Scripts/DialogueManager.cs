@@ -10,23 +10,21 @@ public class DialogueManager : MonoBehaviour
 
     public Animator animator;
 
-    private Queue<string> sentences; //This can also be an array if we want to go back in the list to previous dialogue options
+    private Queue<Sentence> sentences; //This can also be an array if we want to go back in the list to previous dialogue options
 
     // Start is called before the first frame update
     void Start()
     {
-        sentences = new Queue<string>();
+        sentences = new Queue<Sentence>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
         animator.SetBool("isOpen", true);
 
-        nameText.text = dialogue.name;
-
         sentences.Clear();
 
-        foreach(string sentence in dialogue.sentences)
+        foreach(Sentence sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -42,9 +40,11 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        string nextSentence = sentences.Dequeue();
+        Sentence nextSentence = sentences.Dequeue();
         StopAllCoroutines();
-        StartCoroutine(TypeSentence(nextSentence));
+        StartCoroutine(TypeSentence(nextSentence.SentenceText));
+        nameText.text = nextSentence.Name;
+
     }
 
     IEnumerator TypeSentence(string sentence)

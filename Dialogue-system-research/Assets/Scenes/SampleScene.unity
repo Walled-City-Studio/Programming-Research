@@ -1104,11 +1104,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: John Cena
+    name: awossadfasd
     sentences:
-    - Noolwok delivery is better than witch delivery!
-    - Programming isn't difficult, you just get depressed
-    - I don't know what i should write for the third dialogue option
+    - Name: John Cena
+      SentenceText: I am the best
+    - Name: Dwayne Johnson
+      SentenceText: No u dumb
+    - Name: Yeet
+      SentenceText: Yeetus
 --- !u!114 &2113648933
 MonoBehaviour:
   m_ObjectHideFlags: 0
