@@ -1,6 +1,6 @@
 # Research Quest System
 
-!(Quest system DM)[QSI-design-model.jpg]
+![Quest system DM](QSI-design-model.jpg)
 
 ### High level details
 
