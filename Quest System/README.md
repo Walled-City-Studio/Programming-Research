@@ -1,9 +1,6 @@
 # Research Quest System
 
-### Notes
-
-- The g
-- The gameplay team must be able to create quest trough inspector
+!(Quest system DM)[QSI-design-model.jpg.jpg]
 
 ### High level details
 
