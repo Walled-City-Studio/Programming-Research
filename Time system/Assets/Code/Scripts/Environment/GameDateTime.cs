@@ -66,7 +66,7 @@ namespace Code.Scripts.Environment
         {
             return new GameTime(Hour, Minute, Second);
         }
-        
+
         public void Set(GameTime gameTime)
         {
             ticks = GameTimeToTicks(gameTime);

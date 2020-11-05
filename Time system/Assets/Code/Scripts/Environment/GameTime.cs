@@ -15,5 +15,10 @@ namespace Code.Scripts.Environment
             this.minute = minute;
             this.second = second;
         }
+
+        public override string ToString()
+        {
+            return $"H:{hour}, M:{minute}, S:{second}";
+        }
     }
 }
