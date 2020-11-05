@@ -7,7 +7,6 @@ namespace QuestSystem
 {
     public static class QSettings
     {
-        private static List<Quest> editorQuests;
         private static List<Criteria> editorCriterias;
         private static List<Reward> editorRewards;
         private static List<QuestNode> questNodes;
