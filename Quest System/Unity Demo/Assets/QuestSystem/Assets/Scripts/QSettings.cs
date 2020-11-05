@@ -42,7 +42,7 @@ namespace QuestSystem
             showRewards = qSettingsHolder.showRewards;
 
             criteriaSpecificRewards = SettingsHolder.criteriaSpecificRewards;
- 
+
             optional = SettingsHolder.optional;
         }
 

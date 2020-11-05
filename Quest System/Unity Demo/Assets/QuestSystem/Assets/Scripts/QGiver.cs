@@ -15,4 +15,9 @@ public class QGiver : MonoBehaviour
     {
         
     }
+
+    public void StartDialog()
+    {
+        //Starting dialog
+    }
 }
