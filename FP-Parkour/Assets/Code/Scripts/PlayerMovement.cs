@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 
@@ -20,25 +21,33 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private PlayerInput input;
 
-    [Header("Movement Speed")]
+    [Header("Movement")]
+    [SerializeField]
+    [Tooltip("Determines how long it should take to transition from one speed to another")]
+    private float accelerationTime = 1f;
     [SerializeField]
     [Tooltip("Maximum speed while walking")]
     private float walkSpeed = 4f;
     [SerializeField]
     [Tooltip("Maximum speed while sprinting")]
     private float sprintSpeed = 8f;
+    [Header("Crouching and Sliding")]
     [SerializeField]
     [Tooltip("Maximum speed while crouching")]
     private float crouchSpeed = 1.5f;
     [SerializeField]
-    [Tooltip("Maximum speed while sliding")]
-    private float slideSpeed = 10f;
+    [Tooltip("Iinitial speed when sliding")]
+    private float initialSlideSpeed = 10f;
     [SerializeField]
-    [Tooltip("The amount of speed that should be lost per second while sliding")]
+    [Tooltip("Maximum speed that the player can slide at")]
+    private float maxSlideSpeed = 12f;
+    [SerializeField]
+    [Tooltip("Amount of speed that should be lost per second while sliding")]
     private float slideDrag = 1f;
     [SerializeField]
-    [Tooltip("Determines how long it should take to transition from one speed to another")]
-    private float accelerationTime = 1f;
+    [Tooltip("Factor for how much slopes will increase/decrease speed while sliding (0 = Slopes shouldn't affect slide speed)")]
+    private float slideSlopeSpeedModifier = 1f;
+
     private float Speed
     {
         get
@@ -52,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
                 case PlayerStatus.CROUCHING:
                     return crouchSpeed;
                 case PlayerStatus.SLIDING:
-                    return slideSpeed;
+                    return initialSlideSpeed;
                 default:
                     return sprintSpeed;
             }
@@ -65,10 +74,20 @@ public class PlayerMovement : MonoBehaviour
     private float jumpHeight = 1f;
     [SerializeField] [Tooltip("The amount of gravity that the player should be experiencing.")]
     private float gravity = -9.81f;
+    [SerializeField]
+    [Tooltip("Determines how far the player will be able to step down before being considered as falling")]
+    private float groundDistance = 0.2f;
+    [SerializeField]
+    [Tooltip("Determines which layers the player will be able to stand on and be considered as grounded")]
+    private LayerMask groundMask = ~0;
+    private bool grounded;
+    private Transform groundCheck;
 
-    private Vector3 acceleration;
+    [Header("Debug (DO NOT EDIT)")]
     public Vector3 desiredVelocity;
     public Vector3 velocity;
+    private Vector3 acceleration;
+
 
     private float defaultHeight;
     private float defaultRadius;
@@ -77,11 +96,7 @@ public class PlayerMovement : MonoBehaviour
     private Transform playerCamera;
     private Vector3 defaultCameraPosition;
 
-    private bool grounded;
-    private Transform groundCheck;
-    private float groundDistance = 0.2f;
-    [SerializeField]
-    private LayerMask groundMask = ~0;
+
 
 
     // Start is called before the first frame update
@@ -106,6 +121,9 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Jump();
         CalculateVelocity();
+        //Debug.DrawRay(transform.position, transform.forward * 2f, Color.green);
+        Debug.DrawRay(transform.position + transform.right * halfRadius, transform.forward, Color.green);
+        Debug.DrawRay(transform.position - transform.right * halfRadius, transform.forward, Color.green);
     }
 
     private void Move()
@@ -145,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
         else if (input.Crouch && HorizontalMagnitude(velocity) > walkSpeed)
         {
             velocity = HorizontalVector(velocity, out float vy);
-            velocity = velocity.normalized * slideSpeed;
+            velocity = velocity.normalized * initialSlideSpeed;
             velocity.y = vy;
             Slide();
         }
@@ -194,11 +212,21 @@ public class PlayerMovement : MonoBehaviour
     private void Slide()
     {
         Crouch();
-        velocity -= HorizontalVector(velocity, out float vy) * slideDrag * Time.deltaTime;
-        velocity.y = vy;
+        velocity -= HorizontalVector(velocity, out float originalY) * slideDrag * Time.deltaTime; // Subtract slide drag
+        
+        Ray downRay = new Ray(transform.position, -transform.up);
+        Physics.Raycast(downRay, out RaycastHit hit, halfHeight, groundMask);
+        velocity += HorizontalVector(velocity) * Vector3.Dot(transform.forward, hit.normal) * slideSlopeSpeedModifier * Time.deltaTime; // Add slope speed
+
+        velocity.y = originalY;
+        velocity = ClampHorizontalMagnitude(velocity, maxSlideSpeed);
         if (input.Jump)
         {
-            status = PlayerStatus.IDLE;
+            status = PlayerStatus.CROUCHING;
+        }
+        else if (input.Sprint)
+        {
+            status = PlayerStatus.SPRINTING;
         }
         else if (HorizontalMagnitude(velocity) > crouchSpeed)
         {
@@ -215,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded && velocity.y < 0)
         {
-            velocity.y = -2f;
+            velocity.y = gravity/2;
         }
         else
         {

@@ -27,6 +27,10 @@ public class PlayerInput : MonoBehaviour
 
     }
 
+    public bool Sprint
+    {
+        get { return Input.GetButtonDown("Sprint"); }
+    }
     public bool Sprinting
     {
         get { return Input.GetButton("Sprint"); }
