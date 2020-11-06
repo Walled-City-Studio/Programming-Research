@@ -11,6 +11,8 @@ namespace QSystem
 
         [SerializeField] private QReward QReward;
 
+        [SerializeField] public Dialogue Dialogue;
+
         [SerializeField] private QPackage QPackage;
         [SerializeField] private float MaxDeliverTime;
 
