@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace QuestSystem
+namespace QSystem
 {
-    public class QReward : MonoBehaviour
+    public class QManager : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()
