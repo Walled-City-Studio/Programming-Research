@@ -12,6 +12,7 @@ namespace QuestSystem
         public List<QGiver> qGivers = new List<QGiver>();
         public QReward qReward;
 
+
         public void Start()
         {
             //Display description in dialog/pop-up

@@ -1,21 +1,29 @@
 ﻿using UnityEngine;
 
+//Get from enviroment when implemented
 public enum REGION_TYPE
 {
     Rich,
     Poor,
     Industrial
 }
+struct BootLocation
+{
+    string BootID;
+    REGION_TYPE RegionType;
+    Vector3 Adress;
+}
 
 public class Package : MonoBehaviour
 {
-    struct BootLocation
+    public enum PACKAGE_SIZE
     {
-        string BootID;
-        REGION_TYPE RegionType;
-        Vector3 Adress;
+        Small,
+        Medium,
+        Large
     }
-    //Content?
-    BootLocation Location;
-    int PackageSize;
+
+    [SerializeField] private BootLocation Location;
+    [SerializeField] private PACKAGE_SIZE PackageSize;
+    [SerializeField] private bool Illegal;
 }
