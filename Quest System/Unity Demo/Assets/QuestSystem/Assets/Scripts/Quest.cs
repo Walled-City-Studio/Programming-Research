@@ -5,27 +5,34 @@ namespace QuestSystem
 {
     public class Quest : MonoBehaviour
     {
-        [SerializeField] private string title;
-        [SerializeField] private string description;
+        [SerializeField] private string Title;
+        [SerializeField] private string Description;
 
-        [SerializeField] private Package package;
-        public List<QGiver> qGivers = new List<QGiver>();
-        public QReward qReward;
+        [SerializeField] private Package Package;
+        [SerializeField] private QGiver Giver;
+        [SerializeField] private QReward Reward;
+        [SerializeField] private float MaxDeliverTime;
+        private float StartTime;
 
 
         public void Start()
         {
-            //Display description in dialog/pop-up
+            Reward = new QReward(MaxDeliverTime);
+            StartTime = Time.time;
         }
 
-        public void AcceptQuest(bool acceptance)
+        public QReward FinishQuest()
         {
-            //Add quest to quest list if accepted
-        }
+            if(Package.IsDelivered())
+            {
+                Reward.StopTimerAt(Time.time - StartTime);
+                return Reward;
+            }
+            else
+            {
+                return null;
+            }
 
-        public void FinishQuest()
-        {
-            //If criteria are met give out reward and delete quest
         }
     }
 }

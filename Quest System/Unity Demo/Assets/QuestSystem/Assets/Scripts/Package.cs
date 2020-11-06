@@ -1,32 +1,31 @@
 ﻿using UnityEngine;
 
-namespace QuestSystem
+//Get from enviroment when implemented
+
+struct BootLocation
 {
-    //Get from enviroment when implemented
-    public enum REGION_TYPE
+    public string BootID;
+    public REGION_TYPE RegionType;
+    public Vector3 Adress;
+}
+
+public class Package : MonoBehaviour
+{
+    public enum PACKAGE_SIZE
     {
-        Rich,
-        Poor,
-        Industrial
-    }
-    struct BootLocation
-    {
-        string BootID;
-        REGION_TYPE RegionType;
-        Vector3 Adress;
+        Small,
+        Medium,
+        Large
     }
 
-    public class Package : MonoBehaviour
+    [SerializeField] private BootLocation PickUpLocation;
+    [SerializeField] private BootLocation DropOffLocation;
+    [SerializeField] private float MaxInteractionDistanceFromLocation;
+    [SerializeField] private PACKAGE_SIZE PackageSize;
+    [SerializeField] private bool Illegal;
+    
+    public bool IsDelivered()
     {
-        public enum PACKAGE_SIZE
-        {
-            Small,
-            Medium,
-            Large
-        }
-
-        [SerializeField] private BootLocation Location;
-        [SerializeField] private PACKAGE_SIZE PackageSize;
-        [SerializeField] private bool Illegal;
+        return (Vector3.Distance(DropOffLocation.Adress, transform.position) <= MaxInteractionDistanceFromLocation);
     }
 }

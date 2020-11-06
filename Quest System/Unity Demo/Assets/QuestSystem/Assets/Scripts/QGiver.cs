@@ -6,21 +6,18 @@ namespace QuestSystem
 {
     public class QGiver : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        [SerializeField] private string Name;
+        [SerializeField] private List<Quest> AvailableQuests;
+     
 
+        public void ListAvailableQuests()
+        {
+            //Create list popup for available quests
         }
 
-        // Update is called once per frame
-        void Update()
+        public void AcceptQuest(Quest ChosenQuest)
         {
-
-        }
-
-        public void StartDialog()
-        {
-            //Starting dialog
+            AvailableQuests.Remove(ChosenQuest);
         }
     }
 }
