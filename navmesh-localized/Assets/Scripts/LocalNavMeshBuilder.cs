@@ -9,10 +9,13 @@ using NavMeshBuilder = UnityEngine.AI.NavMeshBuilder;
 public class LocalNavMeshBuilder : MonoBehaviour
 {
     // The center of the build
-    public Transform tracked;
-
+    [SerializeField]
+    private Transform tracked;
+    [SerializeField]
+    private bool updateNavMesh;
     // The size of the build bounds
-    public Vector3 size = new Vector3(80.0f, 20.0f, 80.0f);
+    [SerializeField]
+    private Vector3 size = new Vector3(80.0f, 20.0f, 80.0f);
 
     NavMeshData navMesh;
     AsyncOperation operation;
@@ -23,7 +26,7 @@ public class LocalNavMeshBuilder : MonoBehaviour
     {
         while (true)
         {
-            //UpdateNavMesh(true);
+            UpdateNavMesh(updateNavMesh);
             yield return operation;
         }
     }
@@ -36,7 +39,6 @@ public class LocalNavMeshBuilder : MonoBehaviour
         if (tracked == null)
             tracked = transform;
 
-            Debug.Log(transform.position);
         UpdateNavMesh(false);
     }
 
