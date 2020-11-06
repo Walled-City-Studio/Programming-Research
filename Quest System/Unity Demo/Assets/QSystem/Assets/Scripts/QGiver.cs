@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace QSystem
 {
-    public class QGiver : MonoBehaviour
+    public class QGiver : QManager
     {
         [SerializeField] private float Radius = 3;
         [SerializeField] private List<Quest> Quests;

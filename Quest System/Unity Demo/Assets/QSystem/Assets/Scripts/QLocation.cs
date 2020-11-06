@@ -7,9 +7,9 @@ namespace QSystem
     {
         public int BoatID;
 
-        public string CustomerName;
-        public string CustomerAdress;
-        public string CustomerNotes;
+        public string LocationName;
+        public string LocationAdress;
+        public string LocationNotes;
 
         public REGION_TYPE RegionType;
 

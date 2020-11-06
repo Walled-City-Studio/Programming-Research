@@ -152,54 +152,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &404439074
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 404439076}
-  - component: {fileID: 404439075}
-  m_Layer: 0
-  m_Name: Quest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &404439075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 404439074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bf53b195f0c5ac4a998ddec1dd0028e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Title: Deliver Package Demo
-  Description: Deliver package, make sure whitchbitch doesn't steal!
-  QReward: {fileID: 11400000, guid: d9957f9c7641fd348933fec31c3669de, type: 2}
-  QPackage: {fileID: 3286141786625134834, guid: 354e7ac5c16b0124aa1d808261007350,
-    type: 3}
---- !u!4 &404439076
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 404439074}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.74, y: 0.97, z: 2.69}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &406628592
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +472,7 @@ GameObject:
   - component: {fileID: 1307266348}
   - component: {fileID: 1307266347}
   - component: {fileID: 1307266350}
+  - component: {fileID: 1307266351}
   m_Layer: 0
   m_Name: QuestGiver
   m_TagString: Untagged
@@ -613,9 +566,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b38889192e61b642b08f3de62077fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Radius: 3
   Quests:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3655938522615390714, guid: f1bb7857c81bfa34a828207fcf67fb8a, type: 3}
+--- !u!135 &1307266351
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307266345}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1460482481
 GameObject:
   m_ObjectHideFlags: 0
