@@ -6,16 +6,25 @@ namespace QSystem
 {
     public class QManager : MonoBehaviour
     {
+
+        [SerializeField] private List<QGiver> QuestGivers;
+        [SerializeField] private QuestInventory PlayerQuestInventory;
         // Start is called before the first frame update
         void Start()
         {
-
+            PlayerQuestInventory = GetComponent<PlayerController>().QInventory;
         }
 
         // Update is called once per frame
         void Update()
         {
+            //Add random quests to quest givers
+        }
 
+        public void GiveQuestToPlayer(QGiver QuestGiver, Quest AcceptedQuest)
+        {
+            QuestGiver.RemoveQuest(AcceptedQuest);
+            PlayerQuestInventory.AddQuest(AcceptedQuest);
         }
     }
 }
