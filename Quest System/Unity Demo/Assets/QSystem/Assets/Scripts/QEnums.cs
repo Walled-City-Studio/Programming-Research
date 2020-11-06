@@ -6,6 +6,8 @@
 
     public enum REWARD_TYPE { Resource, Item }
 
+    public enum PACKAGE_SIZE { Small, Medium, Large }
+
     public enum RESOURCE_TYPE { Money, Gold, Silver }
 
     public enum CHALLENGE_TYPE { Easy, Medium, Hard }
