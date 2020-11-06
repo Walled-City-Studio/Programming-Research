@@ -19,7 +19,9 @@ public class ClickToMove : MonoBehaviour
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray.origin, ray.direction, out hitInfo))
+            {
                 agent.destination = hitInfo.point;
+            }
         }
     }
 }

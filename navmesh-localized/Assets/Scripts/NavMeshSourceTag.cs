@@ -49,10 +49,16 @@ public class NavMeshSourceTag : MonoBehaviour
         for (var i = 0; i < meshes.Count; ++i)
         {
             var meshFilter = meshes[i];
-            if (meshFilter == null) continue;
+            if (meshFilter == null) 
+            {
+                continue;
+            }
 
             var mesh = meshFilter.sharedMesh;
-            if (mesh == null) continue;
+            if (mesh == null) 
+            {
+                continue;
+            }
 
             var navMeshBuildSource = new NavMeshBuildSource();
             navMeshBuildSource.shape = NavMeshBuildSourceShape.Mesh;
@@ -65,7 +71,10 @@ public class NavMeshSourceTag : MonoBehaviour
         for (var i = 0; i < terrains.Count; ++i)
         {
             var terrain = terrains[i];
-            if (terrain == null) continue;
+            if (terrain == null) 
+            {
+                continue;
+            }
 
             var navMeshBuildSource = new NavMeshBuildSource();
             navMeshBuildSource.shape = NavMeshBuildSourceShape.Terrain;

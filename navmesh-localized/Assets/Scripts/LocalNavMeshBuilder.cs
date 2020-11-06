@@ -24,9 +24,9 @@ public class LocalNavMeshBuilder : MonoBehaviour
 
     IEnumerator Start()
     {
-        while (true)
+        while (updateNavMesh)
         {
-            UpdateNavMesh(updateNavMesh);
+            UpdateNavMesh(true);
             yield return operation;
         }
     }
@@ -36,9 +36,10 @@ public class LocalNavMeshBuilder : MonoBehaviour
         // Construct and add navmesh
         navMesh = new NavMeshData();
         instance = NavMesh.AddNavMeshData(navMesh);
-        if (tracked == null)
+        if (tracked == null) 
+        {
             tracked = transform;
-
+        }
         UpdateNavMesh(false);
     }
 
@@ -54,10 +55,14 @@ public class LocalNavMeshBuilder : MonoBehaviour
         var defaultBuildSettings = NavMesh.GetSettingsByID(0);
         var bounds = QuantizedBounds();
 
-        if (asyncUpdate)
+        if (asyncUpdate) 
+        {
             operation = NavMeshBuilder.UpdateNavMeshDataAsync(navMesh, defaultBuildSettings, sources, bounds);
+        }
         else
+        {
             NavMeshBuilder.UpdateNavMeshData(navMesh, defaultBuildSettings, sources, bounds);
+        }
     }
 
     static Vector3 Quantize(Vector3 v, Vector3 quant)

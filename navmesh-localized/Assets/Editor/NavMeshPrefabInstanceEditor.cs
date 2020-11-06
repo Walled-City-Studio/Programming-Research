@@ -7,13 +7,13 @@ using UnityEngine.AI;
 [CustomEditor(typeof(NavMeshPrefabInstance))]
 class NavMeshPrefabInstanceEditor : Editor
 {
-    SerializedProperty m_FollowTransformProp;
-    SerializedProperty m_NavMeshDataProp;
+    SerializedProperty followTransformProp;
+    SerializedProperty navMeshDataProp;
 
     public void OnEnable()
     {
-        m_FollowTransformProp = serializedObject.FindProperty("m_FollowTransform");
-        m_NavMeshDataProp = serializedObject.FindProperty("m_NavMesh");
+        followTransformProp = serializedObject.FindProperty("m_FollowTransform");
+        navMeshDataProp = serializedObject.FindProperty("m_NavMesh");
     }
 
     public override void OnInspectorGUI()
@@ -24,9 +24,9 @@ class NavMeshPrefabInstanceEditor : Editor
         serializedObject.Update();
 
         GUI.enabled = false;
-        EditorGUILayout.PropertyField(m_NavMeshDataProp);
+        EditorGUILayout.PropertyField(navMeshDataProp);
         GUI.enabled = true;
-        EditorGUILayout.PropertyField(m_FollowTransformProp);
+        EditorGUILayout.PropertyField(followTransformProp);
 
         EditorGUILayout.Space();
 
@@ -50,17 +50,23 @@ class NavMeshPrefabInstanceEditor : Editor
         }
 
         if (string.IsNullOrEmpty(path))
+        {
             return;
+        }
 
         GUILayout.BeginHorizontal();
         GUILayout.Space(EditorGUIUtility.labelWidth);
 
         if (GUILayout.Button("Clear"))
+        {
             OnClear();
+        }
 
         if (GUILayout.Button("Bake"))
+        {
             OnBake();
-
+        }
+        
         GUILayout.EndHorizontal();
     }
 

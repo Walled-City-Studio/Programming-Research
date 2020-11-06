@@ -35,7 +35,9 @@ public class NavMeshPrefabInstance : MonoBehaviour
         AddInstance();
 
         if (instance.valid && followTransformToggle)
+        {
             AddTracking();
+        }
     }
 
     void OnDisable()
@@ -60,8 +62,9 @@ public class NavMeshPrefabInstance : MonoBehaviour
         }
 #endif
         if (navMesh)
+        {
             instance = NavMesh.AddNavMeshData(navMesh, transform.position, transform.rotation);
-
+        }
         rotation = transform.rotation;
         position = transform.position;
     }
@@ -77,7 +80,9 @@ public class NavMeshPrefabInstance : MonoBehaviour
         }
 #endif
         if (trackedInstances.Count == 0)
+        {
             NavMesh.onPreUpdate += UpdateTrackedInstances;
+        }
         trackedInstances.Add(this);
     }
 
@@ -85,18 +90,26 @@ public class NavMeshPrefabInstance : MonoBehaviour
     {
         trackedInstances.Remove(this);
         if (trackedInstances.Count == 0)
+        {
             NavMesh.onPreUpdate -= UpdateTrackedInstances;
+        }
     }
 
     void SetFollowTransform(bool value)
     {
         if (followTransformToggle == value)
+        {
             return;
+        }
         followTransformToggle = value;
         if (value)
+        {
             AddTracking();
+        }
         else
+        {
             RemoveTracking();
+        }
     }
 
     bool HasMoved()
@@ -118,7 +131,9 @@ public class NavMeshPrefabInstance : MonoBehaviour
     {
         // Only when the instance is valid (OnEnable is called) - we react to changes caused by serialization
         if (!instance.valid)
+        {
             return;
+        }
         // OnValidate can be called several times - avoid double registration
         // We afford this linear lookup in the editor only
         if (!followTransformToggle)
