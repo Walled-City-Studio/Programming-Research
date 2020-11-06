@@ -45,6 +45,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Title: Deliver Package Demo
   Description: Deliver package, make sure whitchbitch doesn't steal!
+  Dialogue:
+    sentences:
+    - Name: asdasd
+      SentenceText: asdasd
+    - Name: aaaaa
+      SentenceText: aaaaaa
   QReward: {fileID: 11400000, guid: d9957f9c7641fd348933fec31c3669de, type: 2}
   QPackage: {fileID: 3286141786625134834, guid: 354e7ac5c16b0124aa1d808261007350,
     type: 3}

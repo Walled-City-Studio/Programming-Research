@@ -18,7 +18,8 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<Sentence>();
     }
 
-    public void StartDialogue(Dialogue dialogue)
+   
+    public void StartDialogue(Dialogue dialogue, bool isQuest = false)
     {
         animator.SetBool("isOpen", true);
 
@@ -57,7 +58,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void EndDialogue()
+    public void EndDialogue()
     {
         animator.SetBool("isOpen", false);
     }

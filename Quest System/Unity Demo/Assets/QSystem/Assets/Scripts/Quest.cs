@@ -9,9 +9,10 @@ namespace QSystem
         [SerializeField] private string Title;
         [SerializeField] private string Description;
 
+        [SerializeField] public Dialogue Dialogue;
+
         [SerializeField] private QReward QReward;
 
         [SerializeField] private QPackage QPackage;
-
     }
 }

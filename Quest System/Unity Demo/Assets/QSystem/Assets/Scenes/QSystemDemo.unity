@@ -472,7 +472,6 @@ GameObject:
   - component: {fileID: 1307266348}
   - component: {fileID: 1307266347}
   - component: {fileID: 1307266350}
-  - component: {fileID: 1307266351}
   m_Layer: 0
   m_Name: QuestGiver
   m_TagString: Untagged
@@ -569,19 +568,6 @@ MonoBehaviour:
   Radius: 3
   Quests:
   - {fileID: 3655938522615390714, guid: f1bb7857c81bfa34a828207fcf67fb8a, type: 3}
---- !u!135 &1307266351
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1307266345}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1460482481
 GameObject:
   m_ObjectHideFlags: 0

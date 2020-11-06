@@ -1,22 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace QSystem
 {
-    public class QGiver : QManager
+    public class QGiver : MonoBehaviour
     {
         [SerializeField] private float Radius = 3;
         [SerializeField] private List<Quest> Quests;
-        
+
         private SphereCollider SphereCollider;
+        private Quest NextQuest;
 
         private void Start()
         {
-            SetSphereCollider();
+            AddSphereCollider();
+            NextQuest = Quests.First();
         }
 
-        void SetSphereCollider()
+        void AddSphereCollider()
         {
             SphereCollider = gameObject.AddComponent<SphereCollider>();
             SphereCollider.isTrigger = true;
@@ -24,9 +27,20 @@ namespace QSystem
             SphereCollider.radius = Radius;
         }
 
+        public void AddQuest()
+        {
+            Quests.Remove(NextQuest);
+            NextQuest = Quests.First();
+        }
+
         void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.gameObject.name);
+            FindObjectOfType<DialogueManager>().StartDialogue(NextQuest.Dialogue, true);
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            FindObjectOfType<DialogueManager>().EndDialogue();
         }
     }
 }
