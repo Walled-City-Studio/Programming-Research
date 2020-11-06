@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
     private float slideSpeed = 10f;
     [SerializeField] [Tooltip("Determines how fast the player should accelerate")]
     private float accelerationFactor = 50f;
+    [SerializeField]
+    [Tooltip("Determines how fast the player should decelerate")]
+    private float decelerationFactor = 10f;
     private float MaxSpeed
     {
         get
@@ -94,10 +97,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((int)status <= 3)
         {
-            Vector2 movementInput = input.MovementInput;
+            Vector2 movementInput = input.RawMovementInput;
             Vector3 movementAcceleration = transform.forward * movementInput.y + transform.right * movementInput.x;
             acceleration = movementAcceleration * accelerationFactor;
-            if (input.Sprinting)
+            if (input.Sprinting && acceleration != Vector3.zero)
             {
                 status = PlayerStatus.SPRINTING;
             }
@@ -105,9 +108,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 status = PlayerStatus.CROUCHING;
             }
-            else
+            else if (acceleration != Vector3.zero)
             {
                 status = PlayerStatus.WALKING;
+            }
+            else
+            {
+                status = PlayerStatus.IDLE;
             }
         }
         
@@ -136,14 +143,14 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Crouch()
     {
-        controller.height = Mathf.Lerp(controller.height, halfHeight, 0.25f);
-        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, Vector3.zero, 0.25f);
+        controller.height = Mathf.Lerp(controller.height, halfHeight, .1f);
+        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, Vector3.zero, .1f);
         status = PlayerStatus.CROUCHING;
     }
     private void Uncrouch()
     {
-        controller.height = Mathf.Lerp(controller.height, defaultHeight, 0.25f);
-        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, defaultCameraPosition, 0.25f);
+        controller.height = Mathf.Lerp(controller.height, defaultHeight, .1f);
+        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, defaultCameraPosition, .1f);
         status = PlayerStatus.WALKING;
     }
 
@@ -163,8 +170,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateVelocity()
     {
+        Debug.Log("Status at end: " + status);
         acceleration.y = gravity;
 
+        if (status == PlayerStatus.IDLE)
+        {
+            velocity -= new Vector3(velocity.x, 0, velocity.z) * decelerationFactor * Time.deltaTime;
+        }
         velocity += acceleration * Time.deltaTime;
 
         if (grounded && velocity.y < 0)

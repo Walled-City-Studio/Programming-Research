@@ -32018,8 +32018,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6187115296844890590, guid: 1bf262f2a0c202f4c9327fe585e7bdeb,
         type: 3}
-      propertyPath: groundMask.m_Bits
-      value: 567
+      propertyPath: accelerationFactor
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bf262f2a0c202f4c9327fe585e7bdeb, type: 3}

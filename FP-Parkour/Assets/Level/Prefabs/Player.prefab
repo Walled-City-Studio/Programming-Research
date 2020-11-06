@@ -310,14 +310,14 @@ MonoBehaviour:
   sprintSpeed: 8
   crouchSpeed: 1.5
   slideSpeed: 10
-  accelerationFactor: 100
+  accelerationFactor: 25
   jumpHeight: 1
   gravity: -10
   acceleration: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 567
 --- !u!114 &309585324
 MonoBehaviour:
   m_ObjectHideFlags: 0

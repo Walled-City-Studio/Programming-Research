@@ -11,7 +11,6 @@ public class PlayerInput : MonoBehaviour
             float sidewaysMovement = Input.GetAxis("Horizontal");
             float forwardMovement = Input.GetAxis("Vertical");
             Vector2 movement = new Vector2(sidewaysMovement, forwardMovement);
-            Debug.Log("PlayerInput.MovementInput before clamping: " + movement);
             return Vector2.ClampMagnitude(movement, 1);
         }
     }
@@ -20,8 +19,8 @@ public class PlayerInput : MonoBehaviour
     {
         get
         {
-            float sidewaysMovement = Input.GetAxis("Horizontal");
-            float forwardMovement = Input.GetAxis("Vertical");
+            float sidewaysMovement = Input.GetAxisRaw("Horizontal");
+            float forwardMovement = Input.GetAxisRaw("Vertical");
             Vector2 movement = new Vector2(sidewaysMovement, forwardMovement);
             return movement.normalized;
         }
