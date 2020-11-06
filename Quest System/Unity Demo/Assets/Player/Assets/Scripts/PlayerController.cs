@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using QSystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,10 +12,16 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
+    public QuestInventory QInventory;
 
-    void Start()
+    void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        QInventory = new QuestInventory();
+    }
+
+    private void Start()
+    {
+        controller = GetComponent<CharacterController>();        
     }
 
     void Update()

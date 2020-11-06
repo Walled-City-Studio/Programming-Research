@@ -33,6 +33,11 @@ namespace QSystem
             NextQuest = Quests.First();
         }
 
+        public void RemoveQuest(Quest AcceptedQuest)
+        {
+            Quests.Remove(AcceptedQuest);
+        }
+
         void OnTriggerEnter(Collider other)
         {
             FindObjectOfType<DialogueManager>().StartDialogue(NextQuest.Dialogue, true);
