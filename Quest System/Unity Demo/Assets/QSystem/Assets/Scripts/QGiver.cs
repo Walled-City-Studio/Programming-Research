@@ -11,12 +11,16 @@ namespace QSystem
         [SerializeField] private List<Quest> Quests;
 
         private SphereCollider SphereCollider;
-        private Quest NextQuest;
+        private Quest CurrentQuest;
+        private QManager QManager;
+        private DialogueManager DialogueManager;
 
         private void Start()
         {
+            QManager = FindObjectOfType<QManager>();
+            DialogueManager = FindObjectOfType<DialogueManager>();
+            CurrentQuest = Quests.First();
             AddSphereCollider();
-            NextQuest = Quests.First();
         }
 
         void AddSphereCollider()
@@ -29,8 +33,8 @@ namespace QSystem
 
         public void AddQuest()
         {
-            Quests.Remove(NextQuest);
-            NextQuest = Quests.First();
+            Quests.Remove(CurrentQuest);
+            CurrentQuest = Quests.First();
         }
 
         public void RemoveQuest(Quest AcceptedQuest)
@@ -40,12 +44,12 @@ namespace QSystem
 
         void OnTriggerEnter(Collider other)
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(NextQuest.Dialogue, true);
+            FindObjectOfType<DialogueManager>().StartDialogue(CurrentQuest.Dialogue, CurrentQuest);
         }
 
         void OnTriggerExit(Collider other)
         {
-            FindObjectOfType<DialogueManager>().EndDialogue();
+            DialogueManager.EndDialogue();
         }
     }
 }

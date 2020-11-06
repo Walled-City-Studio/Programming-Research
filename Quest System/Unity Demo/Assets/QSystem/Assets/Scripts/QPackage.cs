@@ -4,8 +4,6 @@ namespace QSystem
 {
     public class QPackage : MonoBehaviour
     {
-        
-
         [SerializeField] private QLocation PickUpLocation;
         [SerializeField] private QLocation DeliveryLocation;
 

@@ -1,17 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace QSystem
 {
     public class QManager : MonoBehaviour
     {
+        public string asdasd = "awsdaasd";
 
-        [SerializeField] private List<QGiver> QuestGivers;
         [SerializeField] private QuestInventory PlayerQuestInventory;
+
+        private List<QGiver> QuestGivers = new List<QGiver>();
+
         // Start is called before the first frame update
         void Start()
         {
+            QuestGivers.AddRange(FindObjectsOfType<QGiver>());
             PlayerQuestInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().QInventory;
         }
 
