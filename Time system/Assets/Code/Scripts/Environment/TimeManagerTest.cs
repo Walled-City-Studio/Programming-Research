@@ -20,6 +20,7 @@ namespace Code.Scripts.Environment
 
         // Usage: onGameTick1.AddEventlistener(MyMethod);
         [SerializeField] public OnGameTickEvent onGameTick1;
+        // onGameTick1 = new OnGameTickEvent();
 
         /********************************************************************************/
 

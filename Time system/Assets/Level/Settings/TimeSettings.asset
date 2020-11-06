@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b31839b8c241e78367b48a92f31ff8, type: 3}
   m_Name: TimeSettings
   m_EditorClassIdentifier: 
-  initialTime:
-    hour: 12
+  initialDateTime:
+    hour: 0
     minute: 0
     second: 0
   realMinutesPerGameDay: 1
-  ticksPerRealSecond: 20
-  timeScale: 1

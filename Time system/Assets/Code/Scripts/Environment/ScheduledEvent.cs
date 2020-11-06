@@ -4,22 +4,22 @@ namespace Code.Scripts.Environment
 {
     public struct ScheduledEvent
     {
+        public Action<GameDateTime> Callback;
+        public GameDateTime GameDateTime;
         public string EventName;
-        public GameTime GameTime;
-        public Action Callback;
 
-        public ScheduledEvent(string eventName, Action callback, int hour = 0, int minute = 0, int second = 0)
+        public ScheduledEvent(Action<GameDateTime> callback, int hour = 0, int minute = 0, int second = 0, string eventName = null)
         {
-            EventName = eventName;
-            GameTime = new GameTime(hour, minute, second);
             Callback = callback;
+            GameDateTime = new GameDateTime(hour, minute, second);
+            EventName = eventName;
         }
 
-        public ScheduledEvent(string eventName, GameTime gameTime, Action callback)
+        public ScheduledEvent(Action<GameDateTime> callback, GameDateTime gameDateTime, string eventName = null)
         {
-            EventName = eventName;
-            GameTime = gameTime;
             Callback = callback;
+            GameDateTime = gameDateTime;
+            EventName = eventName;
         }
     }
 }

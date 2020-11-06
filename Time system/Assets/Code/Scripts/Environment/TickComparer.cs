@@ -2,9 +2,9 @@
 
 namespace Code.Scripts.Environment
 {
-    public class TickComparer : IComparer<uint>
+    public class TickComparer : IComparer<int>
     {
-        public int Compare(uint x, uint y)
+        public int Compare(int x, int y)
         {
             if (x < y)
             {

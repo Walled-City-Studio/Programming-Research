@@ -1,9 +1,11 @@
 ﻿using System;
+using Code.Scripts.Enums;
 using Code.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Code.Scripts.Environment
 {
+    [ExecuteAlways]
     public class DayNightCycle : MonoBehaviour
     {
         [SerializeField]
@@ -17,6 +19,13 @@ namespace Code.Scripts.Environment
 
         [SerializeField]
         private DayNightSettings dayNightSettings;
+
+        [SerializeField]
+        [Range(0, 24)]
+        private float timeOfDay;
+
+        // Internal use
+        private float _timeOfDay;
 
         private void Start()
         {
@@ -33,11 +42,18 @@ namespace Code.Scripts.Environment
 
         private void Update()
         {
-            var timePassed = (float)(timeManager.Ticks % timeSettings.TicksPerDay) / timeSettings.TicksPerDay;
+            if (Application.isPlaying)
+            {
+                _timeOfDay = (timeManager.Ticks / (int) TimeUnits.SECONDS_IN_DAY) % 1;
+            }
+            else
+            {
+                _timeOfDay = timeOfDay / (float) TimeUnits.HOURS_IN_DAY;
+            }
 
-            RenderSettings.ambientLight = dayNightSettings.ambientColor.Evaluate(timePassed);
-            RenderSettings.fogColor = dayNightSettings.fogColor.Evaluate(timePassed);
-            sunLight.transform.localRotation = Quaternion.Euler(new Vector3((timePassed * 360f) - 90f, 180, 0));
+            RenderSettings.ambientLight = dayNightSettings.ambientColor.Evaluate(_timeOfDay);
+            RenderSettings.fogColor = dayNightSettings.fogColor.Evaluate(_timeOfDay);
+            sunLight.transform.localRotation = Quaternion.Euler(new Vector3((_timeOfDay * 360f) - 180f, 180, 0));
         }
     }
 }
