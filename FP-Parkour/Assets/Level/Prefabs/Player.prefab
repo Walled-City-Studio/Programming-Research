@@ -249,7 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6187115296844890589}
   - component: {fileID: 6187115296844890591}
-  - component: {fileID: 6187115296844890590}
+  - component: {fileID: 8055898218408709600}
   - component: {fileID: 309585324}
   m_Layer: 8
   m_Name: Player
@@ -293,7 +293,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6187115296844890590
+--- !u!114 &8055898218408709600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6187115296844890588}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7031bf26e7d1fd74c8407d6cb383f3f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ce51e40582991048841ef19f39df306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   status: 0
@@ -310,10 +310,11 @@ MonoBehaviour:
   sprintSpeed: 8
   crouchSpeed: 1.5
   slideSpeed: 10
-  accelerationFactor: 25
+  slideDrag: 1
+  accelerationTime: 0.2
   jumpHeight: 1
   gravity: -10
-  acceleration: {x: 0, y: 0, z: 0}
+  desiredVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2

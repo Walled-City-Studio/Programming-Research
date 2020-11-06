@@ -3,7 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 
-public enum PlayerStatus { IDLE, WALKING, CROUCHING, SPRINTING, SLIDING, VAULTING };
+public enum PlayerStatus
+{
+    IDLE,
+    WALKING,
+    CROUCHING,
+    SPRINTING,
+    SLIDING,
+    VAULTING
+};
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,20 +21,25 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput input;
 
     [Header("Movement Speed")]
-    [SerializeField] [Tooltip("Maximum speed while walking")]
-    private float walkSpeed = 4f;
-    [SerializeField] [Tooltip("Maximum speed while sprinting")]
-    private float sprintSpeed = 8f;
-    [SerializeField] [Tooltip("Maximum speed while crouching")]
-    private float crouchSpeed = 1.5f;
-    [SerializeField] [Tooltip("Maximum speed while sliding")]
-    private float slideSpeed = 10f;
-    [SerializeField] [Tooltip("Determines how fast the player should accelerate")]
-    private float accelerationFactor = 50f;
     [SerializeField]
-    [Tooltip("Determines how fast the player should decelerate")]
-    private float decelerationFactor = 10f;
-    private float MaxSpeed
+    [Tooltip("Maximum speed while walking")]
+    private float walkSpeed = 4f;
+    [SerializeField]
+    [Tooltip("Maximum speed while sprinting")]
+    private float sprintSpeed = 8f;
+    [SerializeField]
+    [Tooltip("Maximum speed while crouching")]
+    private float crouchSpeed = 1.5f;
+    [SerializeField]
+    [Tooltip("Maximum speed while sliding")]
+    private float slideSpeed = 10f;
+    [SerializeField]
+    [Tooltip("The amount of speed that should be lost per second while sliding")]
+    private float slideDrag = 1f;
+    [SerializeField]
+    [Tooltip("Determines how long it should take to transition from one speed to another")]
+    private float accelerationTime = 1f;
+    private float Speed
     {
         get
         {
@@ -45,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    private float LastSpeed { get; set; }
 
     [Header("Vertical Speed")]
     [SerializeField] [Tooltip("The height that the player should jump in Unity units (usually 1unit = 1meter)")]
@@ -52,7 +66,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Tooltip("The amount of gravity that the player should be experiencing.")]
     private float gravity = -9.81f;
 
-    public Vector3 acceleration;
+    private Vector3 acceleration;
+    public Vector3 desiredVelocity;
     public Vector3 velocity;
 
     private float defaultHeight;
@@ -67,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
     private float groundDistance = 0.2f;
     [SerializeField]
     private LayerMask groundMask = ~0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -88,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckCrouch();
         Move();
-        GroundCheck();
         Jump();
         CalculateVelocity();
     }
@@ -98,17 +113,17 @@ public class PlayerMovement : MonoBehaviour
         if ((int)status <= 3)
         {
             Vector2 movementInput = input.RawMovementInput;
-            Vector3 movementAcceleration = transform.forward * movementInput.y + transform.right * movementInput.x;
-            acceleration = movementAcceleration * accelerationFactor;
-            if (input.Sprinting && acceleration != Vector3.zero)
+            desiredVelocity = transform.forward * movementInput.y + transform.right * movementInput.x;
+            
+            if (input.Sprinting && desiredVelocity != Vector3.zero)
             {
                 status = PlayerStatus.SPRINTING;
             }
-            else if (input.Crouching)
+            else if (input.Crouching || controller.height < defaultHeight - .5f )
             {
                 status = PlayerStatus.CROUCHING;
             }
-            else if (acceleration != Vector3.zero)
+            else if (desiredVelocity != Vector3.zero)
             {
                 status = PlayerStatus.WALKING;
             }
@@ -123,9 +138,20 @@ public class PlayerMovement : MonoBehaviour
     /******************** CROUCHING ********************/
     private void CheckCrouch()
     {
-        if (input.Crouching && ! input.Sprinting)
+        if (input.Crouching && HorizontalMagnitude(velocity) <= walkSpeed)
         {
             Crouch();
+        }
+        else if (input.Crouch && HorizontalMagnitude(velocity) > walkSpeed)
+        {
+            velocity = HorizontalVector(velocity, out float vy);
+            velocity = velocity.normalized * slideSpeed;
+            velocity.y = vy;
+            Slide();
+        }
+        else if (status == PlayerStatus.SLIDING)
+        {
+            Slide();
         }
         else
         {
@@ -157,38 +183,60 @@ public class PlayerMovement : MonoBehaviour
     /******************** JUMPING ********************/
     private void Jump()
     {
+        grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (input.Jump && grounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }
-    private void GroundCheck()
-    {
-        grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-    }
 
+    /******************** SLIDING ********************/
+    private void Slide()
+    {
+        Crouch();
+        velocity -= HorizontalVector(velocity, out float vy) * slideDrag * Time.deltaTime;
+        velocity.y = vy;
+        if (input.Jump)
+        {
+            status = PlayerStatus.IDLE;
+        }
+        else if (HorizontalMagnitude(velocity) > crouchSpeed)
+        {
+            status = PlayerStatus.SLIDING;
+        }
+    }
 
     private void CalculateVelocity()
     {
-        Debug.Log("Status at end: " + status);
-        acceleration.y = gravity;
+        desiredVelocity *= Speed;
 
-        if (status == PlayerStatus.IDLE)
-        {
-            velocity -= new Vector3(velocity.x, 0, velocity.z) * decelerationFactor * Time.deltaTime;
-        }
-        velocity += acceleration * Time.deltaTime;
+        if (status != PlayerStatus.SLIDING)
+            velocity = Vector3.SmoothDamp(velocity, new Vector3(desiredVelocity.x, velocity.y, desiredVelocity.z), ref acceleration, accelerationTime);
 
         if (grounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
+        else
+        {
+            velocity.y += gravity * Time.deltaTime;
+        }
 
-        velocity = ClampHorizontalMagnitude(velocity, MaxSpeed);
         controller.Move(velocity * Time.deltaTime);
         
     }
 
+    private Vector3 HorizontalVector(Vector3 input)
+    {
+        input.y = 0;
+        return input;
+    }
+    // The HorizontalVector(Vector3, float) overload saves the y value to an output variable
+    private Vector3 HorizontalVector(Vector3 input, out float y)
+    {
+        y = input.y;
+        return HorizontalVector(input);
+    }
     private float HorizontalMagnitude(Vector3 input)
     {
         input.y = 0;
