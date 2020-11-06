@@ -6,16 +6,44 @@ namespace QuestSystem
 {
     public class QReward : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        [SerializeField] private GameObject RewardItem;
+        [SerializeField] private float BaseRewardMoney;
+        [SerializeField] private float MaxTimeConsumption;
+        [SerializeField] private float MaxRewardAmountTimeScale;
+        private float RewardScale;
 
+        public QReward(float MaxQuestTime)
+        {
+            MaxRewardAmountTimeScale = MaxQuestTime;
         }
 
-        // Update is called once per frame
-        void Update()
+        public void StopTimerAt(float CompletionTime)
         {
+            RewardScale = MaxTimeConsumption / CompletionTime;
+        }  
+        
+        public GameObject GetRewardObject()
+        {
+            if (RewardScale <= 1.0f)
+            {
+                return RewardItem;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
+        public float GetRewardMoney()
+        {
+            if(RewardScale <= MaxRewardAmountTimeScale)
+            {
+                return BaseRewardMoney * RewardScale;
+            }
+            else
+            {
+                return 0.0f;
+            }
         }
     }
 }
