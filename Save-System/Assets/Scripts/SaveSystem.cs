@@ -7,7 +7,7 @@ public static class SaveSystem
     public static void SavePlayer (Player player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        //Path name doesnt matter
+        //Path extension doesnt matter, so in this demo it is .fun
         string path = Application.persistentDataPath + "/player.fun";
         FileStream stream = new FileStream(path, FileMode.Create);
 

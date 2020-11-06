@@ -5,14 +5,32 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public int level;
-    public int health;
-    public float[] position;
+    private int level;
+    private int health;
+    private float[] position;
+
+    public int Level
+    {
+        get { return level; }
+        set { level = value; }
+    }
+
+    public int Health
+    {
+        get { return health; }
+        set { health = value; }
+    }
+
+    public float[] Position
+    {
+        get { return position; }
+        set { position = value; }
+    }
 
     public PlayerData (Player player)
     {
-        level = player.level;
-        health = player.health;
+        level = player.Level;
+        health = player.Health;
 
         position = new float[3];
         position[0] = player.transform.position.x;
