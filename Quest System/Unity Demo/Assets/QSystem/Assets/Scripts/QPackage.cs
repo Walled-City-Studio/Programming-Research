@@ -11,7 +11,11 @@ namespace QSystem
 
         [SerializeField] private LEGAL_STATUS LegalStatus;
 
-        [SerializeField] private PACKAGE_SIZE Size;
+        public PACKAGE_SIZE Size
+        {
+            get { return Size; }
+            private set { Size = value; }
+        }
 
         [SerializeField] private GameObject PackagePrefab;
         [SerializeField] private float MaxInteractionDistanceFromLocation;

@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 683020182}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -376,6 +376,7 @@ MonoBehaviour:
   rotateSpeed: 6
   jumpSpeed: 8
   gravity: 20
+  QuestInventorySize: 0
 --- !u!1 &934614942
 GameObject:
   m_ObjectHideFlags: 0

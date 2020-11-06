@@ -13,7 +13,8 @@ namespace QSystem
 
         [SerializeField] public Dialogue Dialogue;
 
-        [SerializeField] private QPackage QPackage;
+        public QPackage QPackage;
+       
         [SerializeField] private float MaxDeliverTime;
 
         private float StartTime;

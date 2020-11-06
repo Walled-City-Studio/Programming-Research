@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
     public QuestInventory QInventory;
-
+    [SerializeField] private int QuestInventorySize;
     void Awake()
     {
-        QInventory = new QuestInventory();
+        QInventory = new QuestInventory(QuestInventorySize);
     }
 
     private void Start()

@@ -12,7 +12,7 @@ namespace QSystem
         // Start is called before the first frame update
         void Start()
         {
-            PlayerQuestInventory = GetComponent<PlayerController>().QInventory;
+            PlayerQuestInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().QInventory;
         }
 
         // Update is called once per frame
@@ -23,8 +23,10 @@ namespace QSystem
 
         public void GiveQuestToPlayer(QGiver QuestGiver, Quest AcceptedQuest)
         {
-            QuestGiver.RemoveQuest(AcceptedQuest);
-            PlayerQuestInventory.AddQuest(AcceptedQuest);
+            if(PlayerQuestInventory.AddQuest(AcceptedQuest))
+            {
+                QuestGiver.RemoveQuest(AcceptedQuest);
+            }
         }
     }
 }
