@@ -1,43 +1,42 @@
-﻿using QSystem;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor;
 
-[CustomEditor(typeof(QReward))]
-public class QRewardEditor : Editor
+namespace QSystem
 {
-    SerializedProperty RewardType;
-    SerializedProperty ResourceType;
-    SerializedProperty Item;
-    SerializedProperty Ammount;
-
-    private void OnEnable()
+    [CustomEditor(typeof(QReward))]
+    public class QRewardEditor : Editor
     {
-        RewardType = serializedObject.FindProperty("RewardType");
-        ResourceType = serializedObject.FindProperty("ResourceType");
-        Item = serializedObject.FindProperty("Item");
-        Ammount = serializedObject.FindProperty("Ammount");
-    }
+        SerializedProperty RewardType;
+        SerializedProperty ResourceType;
+        SerializedProperty Item;
+        SerializedProperty Ammount;
 
-    public override void OnInspectorGUI()
-    {
-        serializedObject.Update();
-
-        EditorGUILayout.PropertyField(RewardType);
-
-        if (RewardType.enumValueIndex == 0)
+        private void OnEnable()
         {
-            EditorGUILayout.PropertyField(ResourceType);
+            RewardType = serializedObject.FindProperty("RewardType");
+            ResourceType = serializedObject.FindProperty("ResourceType");
+            Item = serializedObject.FindProperty("Item");
+            Ammount = serializedObject.FindProperty("Ammount");
         }
 
-        else if (RewardType.enumValueIndex == 1)
+        public override void OnInspectorGUI()
         {
-            EditorGUILayout.PropertyField(Item);
+            serializedObject.Update();
+
+            EditorGUILayout.PropertyField(RewardType);
+
+            if (RewardType.enumValueIndex == 0)
+            {
+                EditorGUILayout.PropertyField(ResourceType);
+            }
+
+            else if (RewardType.enumValueIndex == 1)
+            {
+                EditorGUILayout.PropertyField(Item);
+            }
+
+            EditorGUILayout.PropertyField(Ammount);
+
+            serializedObject.ApplyModifiedProperties();
         }
-
-        EditorGUILayout.PropertyField(Ammount);
-
-        serializedObject.ApplyModifiedProperties();
     }
 }

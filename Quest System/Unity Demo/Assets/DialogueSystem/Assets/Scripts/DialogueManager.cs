@@ -4,42 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : GUIManager<DialogueManager>
 {
     public Text nameText;
     public Text dialogueText;
 
     public Animator animator;
 
+    public GameObject canvas;
+
     private Queue<Sentence> sentences; //This can also be an array if we want to go back in the list to previous dialogue options
 
-    private Quest CurrentQuest;
+    private GameObject AcceptButton;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         sentences = new Queue<Sentence>();
+        AcceptButton = GameObject.Find("AcceptButton");
+        AcceptButton.SetActive(false);
     }
 
-    public void SetCurrentQuest(Quest quest)
+    public void StartDialogue(Dialogue dialogue)
     {
-        CurrentQuest = quest;
-    }
-
-    public void StartDialogue(Dialogue dialogue, Quest quest = null)
-    {
-        if (quest != null)
-        {
-            SetCurrentQuest(quest);
-        }
-          
         animator.SetBool("isOpen", true);
-
         sentences.Clear();
 
         foreach(Sentence sentence in dialogue.sentences)
         {
-            Debug.Log("asdasd111");
             sentences.Enqueue(sentence);
         }
 
@@ -58,7 +50,6 @@ public class DialogueManager : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(TypeSentence(nextSentence.SentenceText));
         nameText.text = nextSentence.Name;
-
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -74,6 +65,16 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         animator.SetBool("isOpen", false);
+
+        // TODO: Maybe replace this with a trigger and keep `EndDialogue` intact.
+        if(QHandler.Instance != null)
+        {
+            QHandler.Instance.SetCurrentDiaglogueQuest();
+        }
     }
 
+    public void SetAgreeButton(bool isActive)
+    {
+        AcceptButton.SetActive(isActive);
+    }
 }

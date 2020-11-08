@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,19 +6,16 @@ namespace QSystem
 {
     public class QGiver : MonoBehaviour
     {
-        [SerializeField] private float Radius = 3;
+        [SerializeField] private string Name = "NPC";
+        [SerializeField] private float InteractRadius = 3f;
         [SerializeField] private List<Quest> Quests;
 
+        private Quest NextQuest;
         private SphereCollider SphereCollider;
-        private Quest CurrentQuest;
-        private QManager QManager;
-        private DialogueManager DialogueManager;
 
         private void Start()
         {
-            QManager = FindObjectOfType<QManager>();
-            DialogueManager = FindObjectOfType<DialogueManager>();
-            CurrentQuest = Quests.First();
+            NextQuest = Quests.First();
             AddSphereCollider();
         }
 
@@ -28,28 +24,32 @@ namespace QSystem
             SphereCollider = gameObject.AddComponent<SphereCollider>();
             SphereCollider.isTrigger = true;
             SphereCollider.center = Vector3.zero;
-            SphereCollider.radius = Radius;
+            SphereCollider.radius = InteractRadius;
         }
 
-        public void AddQuest()
+        public void RemoveQuest(Quest quest)
         {
-            Quests.Remove(CurrentQuest);
-            CurrentQuest = Quests.First();
-        }
-
-        public void RemoveQuest(Quest AcceptedQuest)
-        {
-            Quests.Remove(AcceptedQuest);
+            Quests.Remove(quest);
+            NextQuest = Quests.Count > 0 ? Quests.First() : null;
         }
 
         void OnTriggerEnter(Collider other)
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(CurrentQuest.Dialogue, CurrentQuest);
+            if(other.gameObject.CompareTag("Player") && NextQuest != null)
+            {
+                QHandler.Instance.AddQuestDiscovered(NextQuest);
+                QHandler.Instance.SetCurrentDiaglogueQuest(NextQuest, this);
+                DialogueManager.Instance.SetAgreeButton(true);
+                DialogueManager.Instance.StartDialogue(NextQuest.Dialogue);
+            }
         }
 
         void OnTriggerExit(Collider other)
         {
-            DialogueManager.EndDialogue();
+            QHandler.Instance.SetCurrentDiaglogueQuest();
+            DialogueManager.Instance.SetAgreeButton(false);
+            DialogueManager.Instance.EndDialogue();
         }
+ 
     }
 }
