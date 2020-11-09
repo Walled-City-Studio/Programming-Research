@@ -105,7 +105,7 @@ namespace Code.Scripts.Environment.TimeSystem
         {
             if (_schedule.TryGetValue(timeSlot, out var events))
             {
-                var @event = events.Single(e => e.EventName != null && e.EventName.Equals(eventName));
+                ScheduledEvent @event = events.Single(e => e.EventName != null && e.EventName.Equals(eventName));
                 return events.Remove(@event);
             }
 

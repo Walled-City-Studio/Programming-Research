@@ -80,7 +80,7 @@ namespace Code.Scripts.Environment.TimeSystem
             TimeScale = (float) TimeUnits.MINUTES_IN_DAY / settings.realMinutesPerGameDay;
 
             // Calculates number of real seconds per 1 game minute
-            var secondsPerGameDay = settings.realMinutesPerGameDay * (int) TimeUnits.SECONDS_IN_MINUTE;
+            int secondsPerGameDay = settings.realMinutesPerGameDay * (int) TimeUnits.SECONDS_IN_MINUTE;
             RealSecondPerGameMinute = secondsPerGameDay / (float) TimeUnits.MINUTES_IN_DAY;
 
             // Set initial start time

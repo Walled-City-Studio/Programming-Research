@@ -9,6 +9,8 @@ namespace Code.Scripts.Environment
     [ExecuteAlways]
     public class DayNightCycle : MonoBehaviour
     {
+        private const float SunInitialIntensity = 1;
+
         [SerializeField]
         private TimeSettings timeSettings;
 
@@ -28,7 +30,6 @@ namespace Code.Scripts.Environment
         // Internal use
         private float _timeOfDay;
 
-        private readonly float _sunInitialIntensity = 1;
         private float _intensityMultiplier = .8f;
 
         private void Start()
@@ -68,7 +69,7 @@ namespace Code.Scripts.Environment
                 _intensityMultiplier = Mathf.Clamp01(1 - ((_timeOfDay - Hour(17.5f)) * (1 / 0.02f)));
             }
 
-            sunLight.intensity = _sunInitialIntensity * _intensityMultiplier;
+            sunLight.intensity = SunInitialIntensity * _intensityMultiplier;
 
             RenderSettings.ambientLight = dayNightSettings.ambientColor.Evaluate(_timeOfDay);
             RenderSettings.fogColor = dayNightSettings.fogColor.Evaluate(_timeOfDay);
@@ -82,7 +83,7 @@ namespace Code.Scripts.Environment
 
         private bool BetweenHours(int from, int to)
         {
-            var time = _timeOfDay * (int) TimeUnits.HOURS_IN_DAY;
+            float time = _timeOfDay * (int) TimeUnits.HOURS_IN_DAY;
             return time >= from && time < to;
         }
     }

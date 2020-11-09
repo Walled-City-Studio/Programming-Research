@@ -1,11 +1,9 @@
-using System;
 using System.Globalization;
-using Code.Scripts.Environment;
 using Code.Scripts.Environment.TimeSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scripts.UI
+namespace Code.Scripts
 {
     public class Clock : MonoBehaviour
     {
