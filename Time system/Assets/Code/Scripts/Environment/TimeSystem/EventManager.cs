@@ -9,10 +9,10 @@ namespace Code.Scripts.Environment.TimeSystem
         [SerializeField]
         private TimeManager timeManager;
 
-        private Dictionary<TimeSlot, List<ScheduledEvent>> _schedule;
+        private Dictionary<TimeSlot, List<ScheduledEvent>> schedule;
 
-        private int _id;
-        private int _prevTicks;
+        private int id;
+        private int prevTicks;
 
         private void Start()
         {
@@ -22,24 +22,24 @@ namespace Code.Scripts.Environment.TimeSystem
                 return;
             }
 
-            _schedule = new Dictionary<TimeSlot, List<ScheduledEvent>>();
-            _prevTicks = timeManager.Settings.initialDateTime.ToTicks();
+            schedule = new Dictionary<TimeSlot, List<ScheduledEvent>>();
+            prevTicks = timeManager.Settings.initialDateTime.ToTicks();
         }
 
         // Call all events scheduled for the current gameDateTime
         private void CallNextEvent(GameDateTime gameDateTime)
         {
-            if (_schedule.Count <= 0)
+            if (schedule.Count <= 0)
             {
                 return;
             }
 
-            foreach (var scheduleItem in _schedule)
+            foreach (var scheduleItem in schedule)
             {
                 var timeSlot = scheduleItem.Key;
-                if (timeSlot.Ticks >= _prevTicks && timeSlot.Ticks <= gameDateTime.ToTicks())
+                if (timeSlot.Ticks >= prevTicks && timeSlot.Ticks <= gameDateTime.ToTicks())
                 {
-                    foreach (var scheduledEvent in _schedule[timeSlot])
+                    foreach (var scheduledEvent in schedule[timeSlot])
                     {
                         scheduledEvent.Callback(gameDateTime);
                     }
@@ -49,7 +49,7 @@ namespace Code.Scripts.Environment.TimeSystem
                 }
             }
 
-            _prevTicks = gameDateTime.ToTicks();
+            prevTicks = gameDateTime.ToTicks();
         }
 
         public TimeSlot AddEvent(ScheduledEvent scheduledEvent)
@@ -71,13 +71,13 @@ namespace Code.Scripts.Environment.TimeSystem
             // If the key exists, add it to the associated ScheduledEvent List
             if (IsTimeSlotUsed(scheduledEvent.GameDateTime, out var timeSlot))
             {
-                _schedule[timeSlot].Add(scheduledEvent);
+                schedule[timeSlot].Add(scheduledEvent);
                 return timeSlot;
             }
 
             // Else create a new entry
-            var createdTimeSlot = new TimeSlot(_id++, scheduledEvent.GameDateTime.ToTicks());
-            _schedule.Add(
+            var createdTimeSlot = new TimeSlot(id++, scheduledEvent.GameDateTime.ToTicks());
+            schedule.Add(
                 createdTimeSlot,
                 new List<ScheduledEvent> {scheduledEvent}
             );
@@ -87,7 +87,7 @@ namespace Code.Scripts.Environment.TimeSystem
 
         private bool DoesEventNameExist(string eventName)
         {
-            foreach (var scheduleItem in _schedule)
+            foreach (var scheduleItem in schedule)
             {
                 foreach (var @event in scheduleItem.Value)
                 {
@@ -103,7 +103,7 @@ namespace Code.Scripts.Environment.TimeSystem
 
         public bool RemoveEvent(TimeSlot timeSlot, string eventName)
         {
-            if (_schedule.TryGetValue(timeSlot, out var events))
+            if (schedule.TryGetValue(timeSlot, out var events))
             {
                 ScheduledEvent @event = events.Single(e => e.EventName != null && e.EventName.Equals(eventName));
                 return events.Remove(@event);
@@ -114,14 +114,14 @@ namespace Code.Scripts.Environment.TimeSystem
 
         public bool RemoveTimeSlot(TimeSlot timeSlot)
         {
-            return _schedule.Remove(timeSlot);
+            return schedule.Remove(timeSlot);
         }
 
         private bool IsTimeSlotUsed(GameDateTime gameDateTime, out TimeSlot timeSlot)
         {
             timeSlot = default;
 
-            foreach (var @event in _schedule)
+            foreach (var @event in schedule)
             {
                 if (@event.Key.Ticks == gameDateTime.ToTicks())
                 {
@@ -151,8 +151,8 @@ namespace Code.Scripts.Environment.TimeSystem
 
         public void LogEvents(bool logEvents = false)
         {
-            Debug.Log($"Total timeslot count: {_schedule.Count}");
-            foreach (var scheduledEvent in _schedule)
+            Debug.Log($"Total timeslot count: {schedule.Count}");
+            foreach (var scheduledEvent in schedule)
             {
                 Debug.Log($"Timeslot {scheduledEvent.Key} with {scheduledEvent.Value.Count} event(s)");
                 if (logEvents)

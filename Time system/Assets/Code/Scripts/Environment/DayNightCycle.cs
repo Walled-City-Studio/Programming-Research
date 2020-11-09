@@ -28,9 +28,9 @@ namespace Code.Scripts.Environment
         private float timeOfDay;
 
         // Internal use
-        private float _timeOfDay;
+        private float internalTimeOfDay;
 
-        private float _intensityMultiplier = .8f;
+        private float intensityMultiplier = .8f;
 
         private void Start()
         {
@@ -49,31 +49,31 @@ namespace Code.Scripts.Environment
         {
             if (Application.isPlaying)
             {
-                _timeOfDay = (timeManager.Ticks / (int) TimeUnits.SECONDS_IN_DAY) % 1;
+                internalTimeOfDay = (timeManager.Ticks / (int) TimeUnits.SECONDS_IN_DAY) % 1;
             }
             else
             {
-                _timeOfDay = timeOfDay / (float) TimeUnits.HOURS_IN_DAY;
+                internalTimeOfDay = timeOfDay / (float) TimeUnits.HOURS_IN_DAY;
             }
 
-            if (_timeOfDay <= Hour(5.52f) || _timeOfDay >= Hour(18))
+            if (internalTimeOfDay <= Hour(5.52f) || internalTimeOfDay >= Hour(18))
             {
-                _intensityMultiplier = 0;
+                intensityMultiplier = 0;
             }
-            else if (_timeOfDay <= Hour(6f))
+            else if (internalTimeOfDay <= Hour(6f))
             {
-                _intensityMultiplier = Mathf.Clamp01((_timeOfDay - Hour(5.52f)) * (1 / 0.02f));
+                intensityMultiplier = Mathf.Clamp01((internalTimeOfDay - Hour(5.52f)) * (1 / 0.02f));
             }
-            else if (_timeOfDay >= Hour(17.5f))
+            else if (internalTimeOfDay >= Hour(17.5f))
             {
-                _intensityMultiplier = Mathf.Clamp01(1 - ((_timeOfDay - Hour(17.5f)) * (1 / 0.02f)));
+                intensityMultiplier = Mathf.Clamp01(1 - ((internalTimeOfDay - Hour(17.5f)) * (1 / 0.02f)));
             }
 
-            sunLight.intensity = SunInitialIntensity * _intensityMultiplier;
+            sunLight.intensity = SunInitialIntensity * intensityMultiplier;
 
-            RenderSettings.ambientLight = dayNightSettings.ambientColor.Evaluate(_timeOfDay);
-            RenderSettings.fogColor = dayNightSettings.fogColor.Evaluate(_timeOfDay);
-            sunLight.transform.localRotation = Quaternion.Euler((_timeOfDay * 360f) - 90, 170, 0);
+            RenderSettings.ambientLight = dayNightSettings.ambientColor.Evaluate(internalTimeOfDay);
+            RenderSettings.fogColor = dayNightSettings.fogColor.Evaluate(internalTimeOfDay);
+            sunLight.transform.localRotation = Quaternion.Euler((internalTimeOfDay * 360f) - 90, 170, 0);
         }
 
         private float Hour(float hour)
@@ -83,7 +83,7 @@ namespace Code.Scripts.Environment
 
         private bool BetweenHours(int from, int to)
         {
-            float time = _timeOfDay * (int) TimeUnits.HOURS_IN_DAY;
+            float time = internalTimeOfDay * (int) TimeUnits.HOURS_IN_DAY;
             return time >= from && time < to;
         }
     }

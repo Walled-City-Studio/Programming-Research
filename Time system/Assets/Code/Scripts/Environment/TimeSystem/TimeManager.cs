@@ -37,12 +37,12 @@ namespace Code.Scripts.Environment.TimeSystem
         // Note: set without applying timescale
         public float Ticks
         {
-            get { return _ticks * TimeScale; }
+            get { return ticks * TimeScale; }
         }
 
         public float RawTicks
         {
-            get { return _ticks; }
+            get { return ticks; }
         }
 
         [field: SerializeField]
@@ -59,13 +59,13 @@ namespace Code.Scripts.Environment.TimeSystem
         public float RealSecondPerGameMinute { get; private set; }
 
         // Internal unscaled ticks to keep track of time, equivalent to seconds
-        private float _ticks;
+        private float ticks;
 
-        // This is used to regulate event calls, has interconnected relationship with _ticks
-        private float _ticksElapsed;
+        // This is used to regulate event calls, has interconnected relationship with ticks
+        private float ticksElapsed;
 
         // Helper variable to time the onHour event
-        private int _minutesPassed;
+        private int minutesPassed;
 
         private void Awake()
         {
@@ -84,28 +84,28 @@ namespace Code.Scripts.Environment.TimeSystem
             RealSecondPerGameMinute = secondsPerGameDay / (float) TimeUnits.MINUTES_IN_DAY;
 
             // Set initial start time
-            _ticks = settings.initialDateTime.ToTicks() / TimeScale;
-            _minutesPassed = settings.initialDateTime.minute;
+            ticks = settings.initialDateTime.ToTicks() / TimeScale;
+            minutesPassed = settings.initialDateTime.minute;
         }
 
         private void Update()
         {
-            _ticks += Time.deltaTime;
-            _ticksElapsed += Time.deltaTime;
+            ticks += Time.deltaTime;
+            ticksElapsed += Time.deltaTime;
             
             // If an in game minute has passed
-            if (_ticksElapsed > RealSecondPerGameMinute)
+            if (ticksElapsed > RealSecondPerGameMinute)
             {
                 onMinute?.Invoke(Now());
 
                 // -= instead of _ticksElapsed = 0 because we want to account for overflow and don't discard the decimals
                 // For example when it goes from 0s to 1.99s, we would lose the .99s
-                _ticksElapsed -= RealSecondPerGameMinute;
-                _minutesPassed++;
+                ticksElapsed -= RealSecondPerGameMinute;
+                minutesPassed++;
 
-                if (_minutesPassed == (int) TimeUnits.MINUTES_IN_HOUR)
+                if (minutesPassed == (int) TimeUnits.MINUTES_IN_HOUR)
                 {
-                    _minutesPassed = 0;
+                    minutesPassed = 0;
                     onHour?.Invoke(Now());
                 }
             }
@@ -131,7 +131,7 @@ namespace Code.Scripts.Environment.TimeSystem
 
         public void Set(GameDateTime gameDateTime)
         {
-            _ticks = gameDateTime.ToTicks() / TimeScale;
+            ticks = gameDateTime.ToTicks() / TimeScale;
         }
 
         public void Set(int hour, int minute, int second)
@@ -141,7 +141,7 @@ namespace Code.Scripts.Environment.TimeSystem
 
         public void Add(GameDateTime gameDateTime)
         {
-            _ticks += gameDateTime.ToTicks() / TimeScale;
+            ticks += gameDateTime.ToTicks() / TimeScale;
         }
 
         public void Add(int hour, int minute, int second)
@@ -151,7 +151,7 @@ namespace Code.Scripts.Environment.TimeSystem
 
         public void Subtract(GameDateTime gameDateTime)
         {
-            _ticks -= gameDateTime.ToTicks() / TimeScale;
+            ticks -= gameDateTime.ToTicks() / TimeScale;
         }
 
         public void Subtract(int hour, int minute, int second)
