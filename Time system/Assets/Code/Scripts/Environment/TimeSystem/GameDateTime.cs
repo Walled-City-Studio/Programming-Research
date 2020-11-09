@@ -3,7 +3,7 @@ using System.Globalization;
 using Code.Scripts.Enums;
 using UnityEngine;
 
-namespace Code.Scripts.Environment
+namespace Code.Scripts.Environment.TimeSystem
 {
     [Serializable]
     public class GameDateTime
@@ -31,14 +31,14 @@ namespace Code.Scripts.Environment
             second = TimeManager.ToSecond(ticks);
         }
 
-        public void Add(int hour, int minute, int second)
+        public void Add(int hour, int minute = 0, int second = 0)
         {
             this.hour += hour;
             this.minute += minute;
             this.second += second;
         }
 
-        public void Subtract(int hour, int minute, int second)
+        public void Subtract(int hour, int minute = 0, int second = 0)
         {
             this.hour -= hour;
             this.minute -= minute;
@@ -98,7 +98,7 @@ namespace Code.Scripts.Environment
                 .AddSeconds(second)
                 .AddMinutes(minute)
                 .AddHours(hour)
-                .AddYears(2099); // TODO: Replace with the year in the game?
+                .AddYears(2099); // Replace with the year of the game?
         }
     }
 }

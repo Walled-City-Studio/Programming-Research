@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Globalization;
 using Code.Scripts.Environment;
+using Code.Scripts.Environment.TimeSystem;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 namespace Code.Scripts.UI

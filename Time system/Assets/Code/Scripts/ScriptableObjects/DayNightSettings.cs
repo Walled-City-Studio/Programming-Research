@@ -8,6 +8,5 @@ namespace Code.Scripts.ScriptableObjects
         public Gradient ambientColor;
         public Gradient fogColor;
         public Gradient lightColor;
-        // public Vector3 sunAngle;
     }
 }

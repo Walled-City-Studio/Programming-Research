@@ -1,5 +1,6 @@
 ﻿using System;
 using Code.Scripts.Enums;
+using Code.Scripts.Environment.TimeSystem;
 using Code.Scripts.ScriptableObjects;
 using UnityEngine;
 
@@ -27,6 +28,9 @@ namespace Code.Scripts.Environment
         // Internal use
         private float _timeOfDay;
 
+        private readonly float _sunInitialIntensity = 1;
+        private float _intensityMultiplier = .8f;
+
         private void Start()
         {
             if (sunLight != null && RenderSettings.sun != null)
@@ -51,9 +55,35 @@ namespace Code.Scripts.Environment
                 _timeOfDay = timeOfDay / (float) TimeUnits.HOURS_IN_DAY;
             }
 
+            if (_timeOfDay <= Hour(5.52f) || _timeOfDay >= Hour(18))
+            {
+                _intensityMultiplier = 0;
+            }
+            else if (_timeOfDay <= Hour(6f))
+            {
+                _intensityMultiplier = Mathf.Clamp01((_timeOfDay - Hour(5.52f)) * (1 / 0.02f));
+            }
+            else if (_timeOfDay >= Hour(17.5f))
+            {
+                _intensityMultiplier = Mathf.Clamp01(1 - ((_timeOfDay - Hour(17.5f)) * (1 / 0.02f)));
+            }
+
+            sunLight.intensity = _sunInitialIntensity * _intensityMultiplier;
+
             RenderSettings.ambientLight = dayNightSettings.ambientColor.Evaluate(_timeOfDay);
             RenderSettings.fogColor = dayNightSettings.fogColor.Evaluate(_timeOfDay);
-            sunLight.transform.localRotation = Quaternion.Euler(new Vector3((_timeOfDay * 360f) - 180f, 180, 0));
+            sunLight.transform.localRotation = Quaternion.Euler((_timeOfDay * 360f) - 90, 170, 0);
+        }
+
+        private float Hour(float hour)
+        {
+            return hour / (int) TimeUnits.HOURS_IN_DAY;
+        }
+
+        private bool BetweenHours(int from, int to)
+        {
+            var time = _timeOfDay * (int) TimeUnits.HOURS_IN_DAY;
+            return time >= from && time < to;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.Scripts.Environment
+namespace Code.Scripts.Environment.TimeSystem
 {
     public struct ScheduledEvent
     {
@@ -8,7 +8,8 @@ namespace Code.Scripts.Environment
         public GameDateTime GameDateTime;
         public string EventName;
 
-        public ScheduledEvent(Action<GameDateTime> callback, int hour = 0, int minute = 0, int second = 0, string eventName = null)
+        public ScheduledEvent(Action<GameDateTime> callback, int hour = 0, int minute = 0, int second = 0,
+            string eventName = null)
         {
             Callback = callback;
             GameDateTime = new GameDateTime(hour, minute, second);
@@ -20,6 +21,11 @@ namespace Code.Scripts.Environment
             Callback = callback;
             GameDateTime = gameDateTime;
             EventName = eventName;
+        }
+
+        public override string ToString()
+        {
+            return $"Event {EventName ?? "<without_name>"} scheduled for {GameDateTime.ToString("HH:mm:ss")}";
         }
     }
 }

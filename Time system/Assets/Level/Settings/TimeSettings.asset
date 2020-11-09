@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TimeSettings
   m_EditorClassIdentifier: 
   initialDateTime:
-    hour: 0
+    hour: 16
     minute: 0
     second: 0
   realMinutesPerGameDay: 1

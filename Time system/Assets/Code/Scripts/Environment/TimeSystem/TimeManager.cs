@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using Code.Scripts.Enums;
 using Code.Scripts.ScriptableObjects;
 using UnityEngine;
 
-namespace Code.Scripts.Environment
+namespace Code.Scripts.Environment.TimeSystem
 {
     public class TimeManager : MonoBehaviour
     {
@@ -34,16 +33,11 @@ namespace Code.Scripts.Environment
 
         #endregion
 
-        [SerializeField]
-        private TimeSettings timeSettings;
-
         // Internal representation of the in game time, 1 tick is `timeScale` in game seconds
-        // Notes: - Set without timescale
-        //        - Use _ticks for the raw amount of ticks
+        // Note: set without applying timescale
         public float Ticks
         {
             get { return _ticks * TimeScale; }
-            private set { _ticks = value; }
         }
 
         public float RawTicks
@@ -51,17 +45,23 @@ namespace Code.Scripts.Environment
             get { return _ticks; }
         }
 
-        // The number of times the in-game time is faster
+        [field: SerializeField]
+        private TimeSettings settings;
+
+        public TimeSettings Settings
+        {
+            get { return settings; }
+        }
+
+        // The number of times the in game time is faster
         public float TimeScale { get; private set; }
 
         public float RealSecondPerGameMinute { get; private set; }
-        
-        public float TicksInDay { get; private set; }
 
-        // internal unscaled ticks to keep track of time
+        // Internal unscaled ticks to keep track of time, equivalent to seconds
         private float _ticks;
 
-        // This is used to regulate event calls, has interconnected relationship with ticks TODO: verify
+        // This is used to regulate event calls, has interconnected relationship with _ticks
         private float _ticksElapsed;
 
         // Helper variable to time the onHour event
@@ -69,85 +69,37 @@ namespace Code.Scripts.Environment
 
         private void Awake()
         {
-            // The in game time is `timeScale` times faster than real life
+            if (settings == null)
+            {
+                Debug.LogError($"{nameof(TimeManager)} requires an instance of {nameof(TimeSettings)}.");
+                return;
+            }
+
+            // The in game time is `timeScale` times faster
             // 1 real minute = `timeScale` game minutes
-            TimeScale = (float) TimeUnits.MINUTES_IN_DAY / timeSettings.realMinutesPerGameDay;
+            TimeScale = (float) TimeUnits.MINUTES_IN_DAY / settings.realMinutesPerGameDay;
 
             // Calculates number of real seconds per 1 game minute
-            var secondsPerGameDay = timeSettings.realMinutesPerGameDay * (int) TimeUnits.SECONDS_IN_MINUTE;
+            var secondsPerGameDay = settings.realMinutesPerGameDay * (int) TimeUnits.SECONDS_IN_MINUTE;
             RealSecondPerGameMinute = secondsPerGameDay / (float) TimeUnits.MINUTES_IN_DAY;
 
             // Set initial start time
-            Ticks = timeSettings.initialDateTime.ToTicks() / TimeScale;
-
-            // TODO: debug warning if 2 timemanagers or eventmanagers exists?
-
-            #region Debug
-
-            //// var x = new GameDateTime(1,00,00);
-            // var x = new GameDateTime(3600);
-            // Debug.Log(x.ToTicks());
-            // Debug.Log($"{x.hour}:{x.minute}:{x.second}");
-            //// var x2 = new GameDateTime(1,33,43);
-            // var x2 = new GameDateTime(5623);
-            // Debug.Log(x2.ToTicks());
-            // Debug.Log($"{x2.hour}:{x2.minute}:{x2.second}");
-            //// var x3 = new GameDateTime(0, 1, 00);
-            // var x3 = new GameDateTime(60);
-            // Debug.Log(x3.ToTicks());
-            // Debug.Log($"{x3.hour}:{x3.minute}:{x3.second}");
-            //// var x4 = new GameDateTime(0, 0, 30);
-            // var x4 = new GameDateTime(30);
-            // Debug.Log(x4.ToTicks());
-            // Debug.Log($"{x4.hour}:{x4.minute}:{x4.second}");
-
-            // Debug.Log("before set " + Now());
-            // Set(5, 5, 5);
-            // Debug.Log("set " + Now());
-
-            // Debug.Log("before add " + Now());
-            // Add(10, 10, 10);
-            // Debug.Log("add " + Now());
-            //
-            // Debug.Log("before subtract " + Now());
-            // Subtract(10, 10, 10);
-            // Debug.Log("subtract " + Now());
-
-            /*************************************************************/
-            // Debug.Log("timescale " + TimeScale);
-            // Debug.Log("_ticks " + _ticks);
-            // Debug.Log("Ticks " + Ticks);
-            // Debug.Log("now " + Now().hour + "-" + Now().minute + "-" + Now().second);
-
-            // Debug.Log("before set " + Now());
-            // Debug.Log("set2 " + Now().hour + "-" + Now().minute + "-" + Now().second);
-            //
-            // Debug.Log("Hour " + Hour);
-            // Debug.Log("Minute " + Minute);
-            // Debug.Log("Second " + Second);
-
-            // print("- " + ToTotalHours(457235));
-            // print("- " + ToTotalMinutes(457235));
-            // print("- " + ToTotalSeconds(457235));
-            // ticks 457235 = 5 days 07:00:35
-            // ticks 43223  = 12:00:23
-
-            #endregion
+            _ticks = settings.initialDateTime.ToTicks() / TimeScale;
+            _minutesPassed = settings.initialDateTime.minute;
         }
 
         private void Update()
         {
             _ticks += Time.deltaTime;
             _ticksElapsed += Time.deltaTime;
-            // Debug.Log($"{_minutesPassed} - T:{_ticks} - T.E:{_ticksElapsed} - D: {Time.deltaTime} - {Hour}:{Minute}:{Second}");
-
-            // If an in game minute has passed.
+            
+            // If an in game minute has passed
             if (_ticksElapsed > RealSecondPerGameMinute)
             {
                 onMinute?.Invoke(Now());
 
-                // -= instead of _ticksElapsed = 0 because we don't want to discard the decimals and account for overflow.
-                // For example when it goes from 0s to 1.99s, we would lose the .99s otherwise.
+                // -= instead of _ticksElapsed = 0 because we want to account for overflow and don't discard the decimals
+                // For example when it goes from 0s to 1.99s, we would lose the .99s
                 _ticksElapsed -= RealSecondPerGameMinute;
                 _minutesPassed++;
 
@@ -175,7 +127,7 @@ namespace Code.Scripts.Environment
             return (Hour, Minute, Second);
         }
 
-        #region Arithmetic
+        #region Arithmetic and overloads
 
         public void Set(GameDateTime gameDateTime)
         {
@@ -209,7 +161,7 @@ namespace Code.Scripts.Environment
 
         #endregion
 
-        #region Conversion
+        #region Conversion and overloads
 
         public static int ToHour(int ticks)
         {

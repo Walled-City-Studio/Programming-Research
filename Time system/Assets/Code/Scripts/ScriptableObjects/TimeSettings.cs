@@ -1,6 +1,7 @@
 ﻿using System;
 using Code.Scripts.Enums;
 using Code.Scripts.Environment;
+using Code.Scripts.Environment.TimeSystem;
 using UnityEngine;
 
 namespace Code.Scripts.ScriptableObjects
