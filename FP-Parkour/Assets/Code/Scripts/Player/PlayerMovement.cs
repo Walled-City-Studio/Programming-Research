@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Maximum speed while crouching")]
     private float crouchSpeed = 2f;
     [SerializeField]
-    [Tooltip("Iinitial speed when sliding")]
+    [Tooltip("Initial speed when sliding")]
     private float initialSlideSpeed = 10f;
     [SerializeField]
     [Tooltip("Maximum speed that the player can slide at")]
@@ -64,9 +64,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     [Header("Vertical Speed")]
-    [SerializeField] [Tooltip("The height that the player should jump in Unity units (usually 1unit = 1meter)")]
+    [SerializeField]
+    [Tooltip("The height that the player should jump in Unity units (usually 1unit = 1meter)")]
     private float jumpHeight = 1f;
-    [SerializeField] [Tooltip("The amount of gravity that the player should be experiencing.")]
+    [SerializeField]
+    [Tooltip("The amount of gravity that the player should be experiencing")]
     private float gravity = -10f;
     [SerializeField]
     [Tooltip("Determines how far the player will be able to step down before being considered as falling")]
@@ -137,9 +139,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Ray crouchRay = new Ray(transform.position, transform.up);
-            bool cantStandUp = (controller.height < 2f && Physics.Raycast(crouchRay, 1.25f));
-            if (cantStandUp)
+            Ray standUpCheck = new Ray(transform.position, transform.up);
+            if (controller.height < 2f && Physics.Raycast(standUpCheck, halfHeight * 1.25f))
             {
                 Crouch();
             }
@@ -168,7 +169,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 groundPosition = transform.position - new Vector3(0, controller.height / 2, 0);
         grounded = Physics.CheckBox(groundPosition, groundCheckSize, Quaternion.identity, groundMask);
-        // grounded = Physics.CheckSphere(groundPosition, groundDistance, groundMask);
         if (input.Jump && grounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -208,7 +208,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((int)status <= 3)
         {
-            Vector2 movementInput = input.RawMovementInput;
+            Vector2 movementInput = input.MovementInput;
             desiredVelocity = transform.forward * movementInput.y + transform.right * movementInput.x;
 
             if (input.Sprinting && desiredVelocity != Vector3.zero)

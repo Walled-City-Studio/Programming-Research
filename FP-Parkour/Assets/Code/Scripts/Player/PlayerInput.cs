@@ -8,21 +8,10 @@ public class PlayerInput : MonoBehaviour
     {
         get
         {
-            float sidewaysMovement = Input.GetAxis("Horizontal");
-            float forwardMovement = Input.GetAxis("Vertical");
-            Vector2 movement = new Vector2(sidewaysMovement, forwardMovement);
-            return Vector2.ClampMagnitude(movement, 1);
-        }
-    }
-
-    public Vector2 RawMovementInput
-    {
-        get
-        {
             float sidewaysMovement = Input.GetAxisRaw("Horizontal");
             float forwardMovement = Input.GetAxisRaw("Vertical");
             Vector2 movement = new Vector2(sidewaysMovement, forwardMovement);
-            return movement.normalized;
+            return Vector3.ClampMagnitude(movement, 1);
         }
 
     }
