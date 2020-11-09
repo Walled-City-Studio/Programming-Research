@@ -121,6 +121,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &50497521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 50497522}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &50497522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50497521}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 327, y: 168, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1156075152}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &147370724
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +215,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &183559100
 GameObject:
@@ -759,8 +789,8 @@ RectTransform:
   m_Children:
   - {fileID: 2113648931}
   - {fileID: 183559101}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1156075152}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -796,6 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91519eb3b67bd84ab35cf70349d4b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 1061249309}
   nameText: {fileID: 868043068}
   dialogueText: {fileID: 1750693257}
   animator: {fileID: 183559104}
@@ -807,11 +838,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156075150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 339.49976, y: 197.32317, z: 587.642}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1061249310}
+  - {fileID: 50497522}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1613998794
 GameObject:
@@ -1104,14 +1137,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: awossadfasd
     sentences:
     - Name: John Cena
       SentenceText: I am the best
     - Name: Dwayne Johnson
       SentenceText: No u dumb
-    - Name: Yeet
-      SentenceText: Yeetus
+    - Name: Teachers
+      SentenceText: Which game is better
+    dialogueOptions:
+    - Option: Witch way
+      FollowupDialogue:
+      - Name: Jeff
+        SentenceText: No i dont agree
+      - Name: Niels
+        SentenceText: Seems like a child's game
+    - Option: Noolwok
+      FollowupDialogue:
+      - Name: Jeff
+        SentenceText: Oh clearly
+      - Name: Niels
+        SentenceText: I so agree
 --- !u!114 &2113648933
 MonoBehaviour:
   m_ObjectHideFlags: 0
