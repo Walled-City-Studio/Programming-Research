@@ -1,4 +1,5 @@
 ﻿using QSystem;
+<<<<<<< HEAD
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,28 @@ public class PlayerController : MonoBehaviour
         QInventory = new QInventory();
     }
 
+=======
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public float speed = 6.0f;
+    public float rotateSpeed = 6.0f;
+    public float jumpSpeed = 8.0f;
+    public float gravity = 20f;
+
+    private Vector3 moveDirection = Vector3.zero;
+    private CharacterController controller;
+    public QuestInventory QInventory;
+
+    void Awake()
+    {
+        QInventory = new QuestInventory();
+    }
+
+>>>>>>> parent of 9c55c73... Latest
     private void Start()
     {
         controller = GetComponent<CharacterController>();        

@@ -16,5 +16,3 @@ MonoBehaviour:
   ResourceType: 1
   Item: {fileID: 0}
   Ammount: 20
-  MaxTimeConsumption: 0
-  MaxRewardAmountTimeScale: 0

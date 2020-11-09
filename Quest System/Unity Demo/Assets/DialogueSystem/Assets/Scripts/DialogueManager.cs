@@ -4,34 +4,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+<<<<<<< HEAD
 public class DialogueManager : Manager<DialogueManager>
+=======
+public class DialogueManager : MonoBehaviour
+>>>>>>> parent of 9c55c73... Latest
 {
     public Text nameText;
     public Text dialogueText;
 
     public Animator animator;
 
-    public GameObject canvas;
-
     private Queue<Sentence> sentences; //This can also be an array if we want to go back in the list to previous dialogue options
 
-    private GameObject AcceptButton;
+    private Quest CurrentQuest;
 
-
+    // Start is called before the first frame update
     void Start()
     {
         sentences = new Queue<Sentence>();
-        AcceptButton = GameObject.Find("AcceptButton");
-        AcceptButton.SetActive(false);
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void SetCurrentQuest(Quest quest)
     {
+        CurrentQuest = quest;
+    }
+
+    public void StartDialogue(Dialogue dialogue, Quest quest = null)
+    {
+        if (quest != null)
+        {
+            SetCurrentQuest(quest);
+        }
+          
         animator.SetBool("isOpen", true);
+
         sentences.Clear();
 
         foreach(Sentence sentence in dialogue.sentences)
         {
+            Debug.Log("asdasd111");
             sentences.Enqueue(sentence);
         }
 
@@ -50,6 +62,7 @@ public class DialogueManager : Manager<DialogueManager>
         StopAllCoroutines();
         StartCoroutine(TypeSentence(nextSentence.SentenceText));
         nameText.text = nextSentence.Name;
+
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -65,16 +78,15 @@ public class DialogueManager : Manager<DialogueManager>
     public void EndDialogue()
     {
         animator.SetBool("isOpen", false);
+<<<<<<< HEAD
 
         // TODO: Maybe replace this with a trigger and keep `EndDialogue` intact.
         if(QManager.Instance != null)
         {
             QManager.Instance.SetCurrentDiaglogueQuest();
         }
+=======
+>>>>>>> parent of 9c55c73... Latest
     }
 
-    public void SetAgreeButton(bool isActive)
-    {
-        AcceptButton.SetActive(isActive);
-    }
 }

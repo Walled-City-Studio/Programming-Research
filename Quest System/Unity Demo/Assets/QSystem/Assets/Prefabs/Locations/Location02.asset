@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Location02
   m_EditorClassIdentifier: 
   BoatID: 2
-  LocationName: 
-  LocationAdress: 
-  LocationNotes: 
+  CustomerName: 
+  CustomerAdress: 
+  CustomerNotes: 
   RegionType: 3
-  Location: {fileID: 6644419796164534562, guid: 3ce4f505ed8c8b84eabfca1302f6c4b2,
-    type: 3}
+  Location: {x: -5, y: 0.5, z: -5}

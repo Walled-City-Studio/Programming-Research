@@ -13,8 +13,12 @@ namespace QSystem
 
         [SerializeField] public Dialogue Dialogue;
 
+<<<<<<< HEAD
         public QPackage QPackage;
        
+=======
+        [SerializeField] private QPackage QPackage;
+>>>>>>> parent of 9c55c73... Latest
         [SerializeField] private float MaxDeliverTime;
 
         private float StartTime;

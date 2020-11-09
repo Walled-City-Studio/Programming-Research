@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2895768683309042765
+--- !u!1 &4252173432764132809
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,57 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6245241975852944080}
-  - component: {fileID: 8163414282980271182}
-  - component: {fileID: 4981808166950296155}
-  - component: {fileID: 1584381968979521635}
-  - component: {fileID: -3468612560351426055}
+  - component: {fileID: 481491722458099291}
+  - component: {fileID: 739039952678518863}
+  - component: {fileID: 3185213035396010122}
+  - component: {fileID: 3655040768140150230}
+  - component: {fileID: 3286141786625134834}
   m_Layer: 0
-  m_Name: DeliveryPrefab
+  m_Name: QuestPackage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6245241975852944080
+--- !u!4 &481491722458099291
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2895768683309042765}
+  m_GameObject: {fileID: 4252173432764132809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -19.37, y: 0.5, z: -4.31}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!193 &8163414282980271182
-Tree:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2895768683309042765}
-  m_SpeedTreeWindAsset: {fileID: 0}
-  m_TreeData: {fileID: -6678860206782582220, guid: 3a5c1cbcf46b1f74a91fe35b8372cede,
-    type: 3}
---- !u!33 &4981808166950296155
+--- !u!33 &739039952678518863
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2895768683309042765}
-  m_Mesh: {fileID: -4176589688377306812, guid: 3a5c1cbcf46b1f74a91fe35b8372cede, type: 3}
---- !u!23 &1584381968979521635
+  m_GameObject: {fileID: 4252173432764132809}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &3185213035396010122
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2895768683309042765}
+  m_GameObject: {fileID: 4252173432764132809}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -70,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1775820716439592387, guid: 3a5c1cbcf46b1f74a91fe35b8372cede, type: 3}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,17 +81,33 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-3468612560351426055
+--- !u!65 &3655040768140150230
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4252173432764132809}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3286141786625134834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2895768683309042765}
+  m_GameObject: {fileID: 4252173432764132809}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e9bc52891e7cab4d9ccf16208a9e1e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 72bc3b8a81683f34eae709439b88552b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CriteriaType: 0
-  Radius: 3
+  PickUpLocation: {fileID: 11400000, guid: 9796fedd395651644aa6992cb8f9008d, type: 2}
+  DeliveryLocation: {fileID: 11400000, guid: da70d63e767700f468e26be0bb3b33bf, type: 2}
+  LegalStatus: 0
+  Size: 1
+  PackagePrefab: {fileID: 0}
