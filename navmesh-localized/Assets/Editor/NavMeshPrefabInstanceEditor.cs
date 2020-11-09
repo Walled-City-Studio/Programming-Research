@@ -12,8 +12,8 @@ class NavMeshPrefabInstanceEditor : Editor
 
     public void OnEnable()
     {
-        followTransformProp = serializedObject.FindProperty("m_FollowTransform");
-        navMeshDataProp = serializedObject.FindProperty("m_NavMesh");
+        followTransformProp = serializedObject.FindProperty("followTransformToggle");
+        navMeshDataProp = serializedObject.FindProperty("navMesh");
     }
 
     public override void OnInspectorGUI()
@@ -87,11 +87,11 @@ class NavMeshPrefabInstanceEditor : Editor
 
     void OnClear()
     {
-        foreach (var tgt in targets)
+        foreach (var tgt in targets) 
         {
             var instance = (NavMeshPrefabInstance)tgt;
             var go = instance.gameObject;
-            var prefab = PrefabUtility.GetPrefabInstanceHandle(go);
+            var prefab = PrefabUtility.GetPrefabInstanceHandle(instance.gameObject);
             var path = AssetDatabase.GetAssetPath(prefab);
 
             if (string.IsNullOrEmpty(path))
