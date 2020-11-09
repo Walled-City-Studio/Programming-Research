@@ -9,28 +9,28 @@ namespace Code.Scripts.Environment
     [ExecuteAlways]
     public class DayNightCycle : MonoBehaviour
     {
-        private const float SunInitialIntensity = 1;
-
-        [SerializeField]
-        private TimeSettings timeSettings;
+        private const float SUN_ROTATION = 360;
+        private const int OFFSET = 90;
 
         [SerializeField]
         private TimeManager timeManager;
 
         [SerializeField]
+        private DayNightSettings cycle;
+
+        [SerializeField]
         private Light sunLight;
 
         [SerializeField]
-        private DayNightSettings dayNightSettings;
-
-        [SerializeField]
+        [Header("Edit mode only")]
+        [Tooltip("Change the start time in the TimeSettings scriptable object.")]
         [Range(0, 24)]
         private float timeOfDay;
 
         // Internal use
-        private float internalTimeOfDay;
+        private float timeOfDayTicks;
 
-        private float intensityMultiplier = .8f;
+        private float intensityMultiplier;
 
         private void Start()
         {
@@ -47,44 +47,67 @@ namespace Code.Scripts.Environment
 
         private void Update()
         {
+            UpdateTimeOfDay();
+            UpdateLighting();
+
+            RenderSettings.ambientLight = cycle.ambientColor.Evaluate(TicksToPercent(timeOfDayTicks));
+            sunLight.transform.localRotation =
+                Quaternion.Euler((TicksToPercent(timeOfDayTicks) * SUN_ROTATION) - OFFSET, 0, 0);
+        }
+
+        private void UpdateTimeOfDay()
+        {
             if (Application.isPlaying)
             {
-                internalTimeOfDay = (timeManager.Ticks / (int) TimeUnits.SECONDS_IN_DAY) % 1;
-            }
-            else
-            {
-                internalTimeOfDay = timeOfDay / (float) TimeUnits.HOURS_IN_DAY;
-            }
+                timeOfDayTicks = timeManager.Ticks % (int) TimeUnits.SECONDS_IN_DAY;
 
-            if (internalTimeOfDay <= Hour(5.52f) || internalTimeOfDay >= Hour(18))
-            {
-                intensityMultiplier = 0;
+                // Update value in inspector
+                timeOfDay = timeOfDayTicks / (float) TimeUnits.SECONDS_IN_DAY * (int) TimeUnits.HOURS_IN_DAY;
             }
-            else if (internalTimeOfDay <= Hour(6f))
+            else // Edit mode
             {
-                intensityMultiplier = Mathf.Clamp01((internalTimeOfDay - Hour(5.52f)) * (1 / 0.02f));
+                timeOfDayTicks = timeOfDay * (float) TimeUnits.SECONDS_IN_DAY / (int) TimeUnits.HOURS_IN_DAY;
             }
-            else if (internalTimeOfDay >= Hour(17.5f))
-            {
-                intensityMultiplier = Mathf.Clamp01(1 - ((internalTimeOfDay - Hour(17.5f)) * (1 / 0.02f)));
-            }
-
-            sunLight.intensity = SunInitialIntensity * intensityMultiplier;
-
-            RenderSettings.ambientLight = dayNightSettings.ambientColor.Evaluate(internalTimeOfDay);
-            RenderSettings.fogColor = dayNightSettings.fogColor.Evaluate(internalTimeOfDay);
-            sunLight.transform.localRotation = Quaternion.Euler((internalTimeOfDay * 360f) - 90, 170, 0);
         }
 
-        private float Hour(float hour)
+        private void UpdateLighting()
         {
-            return hour / (int) TimeUnits.HOURS_IN_DAY;
+            // Sunrise
+            if (Between(cycle.dawn, cycle.noon))
+            {
+                // Ramp up intensity from 0 to 1
+                intensityMultiplier =
+                    Mathf.Clamp01(1 - (cycle.dawn.ToTicks() - timeOfDayTicks) / cycle.dawn.ToTicks());
+            }
+            // Sunset
+            else if (Between(cycle.dusk, cycle.night))
+            {
+                // Ramp down intensity from 1 to 0
+                intensityMultiplier =
+                    Mathf.Clamp01((timeOfDayTicks - cycle.dusk.ToTicks()));
+            }
+
+            sunLight.intensity = intensityMultiplier;
         }
 
-        private bool BetweenHours(int from, int to)
+        private bool Before(GameDateTime time)
         {
-            float time = internalTimeOfDay * (int) TimeUnits.HOURS_IN_DAY;
-            return time >= from && time < to;
+            return timeOfDayTicks < time.ToTicks();
+        }
+
+        private bool After(GameDateTime time)
+        {
+            return timeOfDayTicks >= time.ToTicks();
+        }
+
+        private bool Between(GameDateTime time1, GameDateTime time2)
+        {
+            return After(time1) && Before(time2);
+        }
+
+        private float TicksToPercent(float ticks)
+        {
+            return ticks / (int) TimeUnits.SECONDS_IN_DAY % 1;
         }
     }
 }

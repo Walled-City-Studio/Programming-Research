@@ -97,8 +97,7 @@ namespace Code.Scripts.Environment.TimeSystem
             return new DateTime()
                 .AddSeconds(second)
                 .AddMinutes(minute)
-                .AddHours(hour)
-                .AddYears(2099); // Replace with the year of the game?
+                .AddHours(hour);
         }
     }
 }
