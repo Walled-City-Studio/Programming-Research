@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
 
     private Queue<Sentence> sentences; //This can also be an array if we want to go back in the list to previous dialogue options
     private DialogueOption[] dialogueOptions;
+    private DialogueOption chosenOption;
     private bool dialogueOptionFinished = false;
 
     // Start is called before the first frame update
@@ -70,6 +71,7 @@ public class DialogueManager : MonoBehaviour
                     button.name = op.Option;
                     button.GetComponent<Text>().text = op.Option;
                     button.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+                    button.GetComponent<Text>().color = Color.black;
                     button.GetComponent<RectTransform>().sizeDelta = (new Vector2(100,20));
                     
                     button.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -20 - iterator * 20, 0);
@@ -107,6 +109,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EnqueueDialogueAfterOption(DialogueOption option)
     {
+        chosenOption = option;
         Debug.Log($"Adding dialogue after option: {option.Option}");
         foreach (Sentence sentence in option.FollowupDialogue)
         {
