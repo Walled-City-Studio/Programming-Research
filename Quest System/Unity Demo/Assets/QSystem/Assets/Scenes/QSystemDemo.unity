@@ -1465,8 +1465,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   Name: NPC
   InteractRadius: 3
+=======
+  Radius: 3
+>>>>>>> parent of 9c55c73... Latest
 =======
   Radius: 3
 >>>>>>> parent of 9c55c73... Latest
@@ -1537,7 +1541,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   showGameObject: 0
+=======
+  asdasd: awsdaasd
+>>>>>>> parent of 9c55c73... Latest
 =======
   asdasd: awsdaasd
 >>>>>>> parent of 9c55c73... Latest
