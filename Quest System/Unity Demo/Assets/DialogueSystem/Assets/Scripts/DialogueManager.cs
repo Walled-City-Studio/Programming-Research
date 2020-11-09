@@ -5,7 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class DialogueManager : Manager<DialogueManager>
+=======
+public class DialogueManager : MonoBehaviour
+>>>>>>> parent of 9c55c73... Latest
 =======
 public class DialogueManager : MonoBehaviour
 >>>>>>> parent of 9c55c73... Latest
@@ -26,12 +30,21 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void SetCurrentQuest(Quest quest)
+<<<<<<< HEAD
     {
         CurrentQuest = quest;
     }
 
     public void StartDialogue(Dialogue dialogue, Quest quest = null)
     {
+=======
+    {
+        CurrentQuest = quest;
+    }
+
+    public void StartDialogue(Dialogue dialogue, Quest quest = null)
+    {
+>>>>>>> parent of 9c55c73... Latest
         if (quest != null)
         {
             SetCurrentQuest(quest);
@@ -79,12 +92,15 @@ public class DialogueManager : MonoBehaviour
     {
         animator.SetBool("isOpen", false);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         // TODO: Maybe replace this with a trigger and keep `EndDialogue` intact.
         if(QManager.Instance != null)
         {
             QManager.Instance.SetCurrentDiaglogueQuest();
         }
+=======
+>>>>>>> parent of 9c55c73... Latest
 =======
 >>>>>>> parent of 9c55c73... Latest
     }

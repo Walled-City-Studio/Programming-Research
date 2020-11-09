@@ -45,6 +45,7 @@ namespace QSystem
         void OnTriggerEnter(Collider other)
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             if(other.gameObject.CompareTag("Player") && NextQuest != null)
             {
                 QManager.Instance.AddQuestDiscovered(NextQuest);
@@ -55,14 +56,21 @@ namespace QSystem
 =======
             FindObjectOfType<DialogueManager>().StartDialogue(CurrentQuest.Dialogue, CurrentQuest);
 >>>>>>> parent of 9c55c73... Latest
+=======
+            FindObjectOfType<DialogueManager>().StartDialogue(CurrentQuest.Dialogue, CurrentQuest);
+>>>>>>> parent of 9c55c73... Latest
         }
 
         void OnTriggerExit(Collider other)
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             QManager.Instance.SetCurrentDiaglogueQuest();
             DialogueManager.Instance.SetAgreeButton(false);
             DialogueManager.Instance.EndDialogue();
+=======
+            DialogueManager.EndDialogue();
+>>>>>>> parent of 9c55c73... Latest
 =======
             DialogueManager.EndDialogue();
 >>>>>>> parent of 9c55c73... Latest

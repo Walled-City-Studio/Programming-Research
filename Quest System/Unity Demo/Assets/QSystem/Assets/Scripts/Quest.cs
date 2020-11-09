@@ -14,8 +14,12 @@ namespace QSystem
         [SerializeField] public Dialogue Dialogue;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         public QPackage QPackage;
        
+=======
+        [SerializeField] private QPackage QPackage;
+>>>>>>> parent of 9c55c73... Latest
 =======
         [SerializeField] private QPackage QPackage;
 >>>>>>> parent of 9c55c73... Latest
