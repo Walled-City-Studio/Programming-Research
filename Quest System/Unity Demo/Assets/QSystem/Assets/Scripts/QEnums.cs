@@ -6,7 +6,7 @@
 
     public enum REWARD_TYPE { Resource, Item }
 
-    public enum PACKAGE_SIZE { Small, Medium, Large }
+    public enum PACKAGE_SIZE { Small = 1, Medium = 2, Large = 5 }
 
     public enum RESOURCE_TYPE { Money, Gold, Silver }
 

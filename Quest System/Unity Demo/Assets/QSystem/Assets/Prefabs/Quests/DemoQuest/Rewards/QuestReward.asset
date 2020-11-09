@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923bcc82184e5c0428c535184c85034a, type: 3}
   m_Name: QuestReward
   m_EditorClassIdentifier: 
-  RewardType: 0
+  RewardType: 1
   ResourceType: 1
   Item: {fileID: 0}
   Ammount: 20

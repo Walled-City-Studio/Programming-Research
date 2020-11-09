@@ -1,4 +1,6 @@
 ﻿using QSystem;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
+
     public QInventory QInventory;
 
     void Awake()
