@@ -16,6 +16,7 @@ namespace QSystem
 
         [SerializeField] public int Ammount;
 
+
         /*[SerializeField] public float MaxTimeConsumption;
 
        private float MaxQuestTime;

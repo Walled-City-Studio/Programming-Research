@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : GUIManager<DialogueManager>
+public class DialogueManager : Manager<DialogueManager>
 {
     public Text nameText;
     public Text dialogueText;
@@ -67,9 +67,9 @@ public class DialogueManager : GUIManager<DialogueManager>
         animator.SetBool("isOpen", false);
 
         // TODO: Maybe replace this with a trigger and keep `EndDialogue` intact.
-        if(QHandler.Instance != null)
+        if(QManager.Instance != null)
         {
-            QHandler.Instance.SetCurrentDiaglogueQuest();
+            QManager.Instance.SetCurrentDiaglogueQuest();
         }
     }
 

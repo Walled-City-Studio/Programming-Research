@@ -38,7 +38,7 @@ namespace QSystem
                 // Pickup collider
                 if (CriteriaType == CRITERIA_TYPE.PickUp)
                 {
-                    QHandler.Instance.PickUpPackage(QPackage);
+                    QManager.Instance.PickUpPackage(QPackage);
                     Destroy(gameObject);
                 }
 
@@ -48,7 +48,7 @@ namespace QSystem
                     if(QPackage.PackageIsTaken)
                     {
                         Debug.Log(QPackage.PackageIsTaken);
-                        QHandler.Instance.DeliverPackage(QPackage);
+                        QManager.Instance.DeliverPackage(QPackage);
                         Destroy(gameObject);
                     }  
                     else

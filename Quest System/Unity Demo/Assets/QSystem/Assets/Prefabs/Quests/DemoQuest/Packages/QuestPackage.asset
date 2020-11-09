@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bc3b8a81683f34eae709439b88552b, type: 3}
   m_Name: QuestPackage
   m_EditorClassIdentifier: 
-  PickUpLocation: {fileID: 11400000, guid: 9796fedd395651644aa6992cb8f9008d, type: 2}
-  DeliveryLocation: {fileID: 11400000, guid: da70d63e767700f468e26be0bb3b33bf, type: 2}
   LegalStatus: 0
   Size: 0
-  MaxInteractionDistanceFromLocation: 0
+  DeliveryType: 0
+  PickUpLocation: {fileID: 11400000, guid: 9796fedd395651644aa6992cb8f9008d, type: 2}
+  DeliveryLocation: {fileID: 11400000, guid: da70d63e767700f468e26be0bb3b33bf, type: 2}
   PickUpPrefab: {fileID: 1111055228082312580, guid: d80c888f3dd62924c9495f61c946ea7d,
     type: 3}
   DeliveryPrefab: {fileID: 2895768683309042765, guid: b04b17983fa40fa41829a38f19388b33,
     type: 3}
+  DeliveryTransform: {fileID: 0}
+  PackageIsTaken: 0
   PackageIsDelivered: 0

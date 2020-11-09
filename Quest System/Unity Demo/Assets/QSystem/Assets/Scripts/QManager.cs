@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace QSystem
 {
-    public class QHandler : Manager<QHandler>
+    public class QManager : Manager<QManager>
     {
         private QInventory QInventory;
 
@@ -104,7 +104,7 @@ namespace QSystem
 
         public void SetQuestTotalTime(Quest quest)
         {
-            if (quest.StartTime != 0.0f || quest.EndTime != 0.0f)
+            if (quest.StartTime != 0.0f && quest.EndTime != 0.0f)
             {
                 quest.TotalTime = quest.EndTime - quest.StartTime;
             }
@@ -152,7 +152,6 @@ namespace QSystem
 
         public void PickUpPackage(QPackage package)
         {
-            Debug.Log("asd");
             package.PackageIsTaken = true;
             QInventory.AddQuestPackage(package);
         }
