@@ -113,9 +113,6 @@ public class PlayerMovement : MonoBehaviour
         MoveDefault();
         Jump();
         ApplyDesiredVelocity();
-        //Debug.DrawRay(transform.position, transform.forward * 2f, Color.green);
-        Debug.DrawRay(transform.position + transform.right * halfRadius, transform.forward, Color.green);
-        Debug.DrawRay(transform.position - transform.right * halfRadius, transform.forward, Color.green);
     }
 
 
@@ -134,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = vy;
             Slide();
         }
-        else if (status == PlayerStatus.SLIDING)
+        else if (status == PlayerStatus.SLIDING && grounded)
         {
             Slide();
         }
