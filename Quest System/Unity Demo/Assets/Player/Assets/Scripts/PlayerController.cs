@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using QSystem;
+=======
+﻿using QSystem;
+>>>>>>> parent of 9c55c73... Latest
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,9 +23,15 @@ public class PlayerController : MonoBehaviour
         QInventory = new QuestInventory();
     }
 
+<<<<<<< HEAD
     private void Start()
     {
         controller = GetComponent<CharacterController>();        
+=======
+    private void Start()
+    {
+        controller = GetComponent<CharacterController>();        
+>>>>>>> parent of 9c55c73... Latest
     }
 
     void Update()
