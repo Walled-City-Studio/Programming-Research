@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿using QSystem;
+=======
+﻿using QSystem;
+>>>>>>> parent of 9c55c73... Latest
 =======
 ﻿using QSystem;
 >>>>>>> parent of 9c55c73... Latest
@@ -24,9 +28,15 @@ public class PlayerController : MonoBehaviour
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void Start()
     {
         controller = GetComponent<CharacterController>();        
+=======
+    private void Start()
+    {
+        controller = GetComponent<CharacterController>();        
+>>>>>>> parent of 9c55c73... Latest
 =======
     private void Start()
     {
