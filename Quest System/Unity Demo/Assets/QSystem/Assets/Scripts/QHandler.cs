@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace QSystem
@@ -9,16 +10,30 @@ namespace QSystem
 
         private List<Quest> AcceptedQuests = new List<Quest>();
         private List<Quest> CompletedQuests = new List<Quest>();
+        private List<Quest> FailedQuests = new List<Quest>(); 
         private List<Quest> DiscoveredQuests = new List<Quest>();
+
+        private List<GameObject> QuestObjects = new List<GameObject>();
 
         private Quest CurrentQuest;
         private Quest CurrentDialogueQuest;
 
         private QGiver CurrentDialogueQuestGiver;
 
+        private bool ShowQuestCounter = false;
+        private int QuestMaxTime = 0;
+
         void Start()
         {
             QInventory = FindObjectOfType<PlayerController>().QInventory;
+        }
+
+        void Update()
+        {
+            if(ShowQuestCounter)
+            {
+                StartCoroutine(StartQuestCounter(QuestMaxTime));
+            }
         }
 
         // Called from Button event
@@ -50,35 +65,99 @@ namespace QSystem
             SetQuestStartTime(quest);
             InitQuestPickUp(quest.QPackage);
             InitQuestDelivery(quest.QPackage);
+            InitQuestTimer(quest);
+        }
+
+        public void InitQuestTimer(Quest quest)
+        {      
+            QuestMaxTime = (int)quest.MaxDeliverTime;
+            ShowQuestCounter = true;
+            QGUIOverlay.Instance.SetQuestMaxTime(quest.MaxDeliverTime);
+            QGUIOverlay.Instance.ShowQuestTimer(true);
+        }
+
+        IEnumerator StartQuestCounter(int maxSeconds)
+        {
+            yield return StartCoroutine(StartCounter(maxSeconds));
+
+            if (CurrentQuest != null && CurrentQuest.QuestStatus != QUEST_STATUS.Complete)
+            {
+                FailQuest(CurrentQuest);
+            }
+        }
+
+        IEnumerator StartCounter(int maxSeconds)
+        {
+            for (int i = 0; i < maxSeconds; i++)
+            {
+                QGUIOverlay.Instance.SetQuestTotalTime(i);
+                yield return new WaitForSeconds(1);
+            }
+        }
+    
+        private void FailQuest(Quest quest)
+        {
+            if (quest.MaxDeliverTime <= QGUIOverlay.Instance.GetCurrentCount() + 1)
+            {
+                Debug.Log("Fail quest");
+                RoundQuest(quest, QUEST_STATUS.Fail);
+            }
         }
 
         private void CompleteQuest(Quest quest)
+        {
+            if (quest.QPackage.PackageIsDelivered && quest.QPackage.PackageIsTaken)
+            {
+                Debug.Log("Complete quest");
+                RoundQuest(quest, QUEST_STATUS.Complete);
+            }  
+        }
+
+        private void RoundQuest(Quest quest, QUEST_STATUS status)
         {
             if (AcceptedQuests.Contains(quest))
             {
                 if (CurrentQuest == quest)
                 {
-                    if (quest.QPackage.PackageIsDelivered && quest.QPackage.PackageIsTaken)
+                    SetQuestEndTime(quest);
+                    SetQuestStatus(quest, status);
+                    AcceptedQuests.Remove(quest);
+                    QInventory.RemoveQuestPackage(quest.QPackage);
+
+                    if (status == QUEST_STATUS.Complete)
                     {
-                        SetQuestEndTime(quest);
-                        SetQuestTotalTime(quest);
-                        AcceptedQuests.Remove(quest);
                         CompletedQuests.Add(quest);
-                        QInventory.AddQuestReward(quest.QReward, quest.ScaleRewardChallenge, quest.ChallengeType);
+                        QInventory.AddQuestReward(quest.QReward, quest.ScaleReward, quest.ChallengeType);
                     }
-                    else
+
+                    else if (status == QUEST_STATUS.Fail)
                     {
-                        Debug.Log("The package isn't picked and/or delivered.");
+                        DespawnQuestPrefabs();
+                        FailedQuests.Add(quest);
                     }
+
+                    QGUIOverlay.Instance.ShowQuestTimer(false);
+                    QGUIOverlay.Instance.ResetTimerValues();
+                    ShowQuestCounter = false;
+                    CurrentQuest = null;
+                    QuestMaxTime = 0;
                 }
                 else
                 {
-                    Debug.Log("It's not allowed to complete other quests then the current quest.");
+                    Debug.Log("It's not allowed to round other quests then the current quest.");
                 }
             }
             else
             {
-                Debug.Log("It's not allowed to complete quests that aren't accepted.");
+                Debug.Log("It's not allowed to round quests that aren't accepted.");
+            }
+        }
+
+        private void DespawnQuestPrefabs()
+        {
+            foreach(GameObject qObject in QuestObjects)
+            {
+                Destroy(qObject);
             }
         }
 
@@ -95,25 +174,13 @@ namespace QSystem
         public void SetQuestEndTime(Quest quest)
         {
             quest.EndTime = Time.time;
+            quest.TotalTime = quest.EndTime - quest.StartTime;
         }
 
         public bool IsDialogueSet()
         {
             return CurrentDialogueQuest != null && CurrentDialogueQuestGiver != null;
         }
-
-        public void SetQuestTotalTime(Quest quest)
-        {
-            if (quest.StartTime != 0.0f || quest.EndTime != 0.0f)
-            {
-                quest.TotalTime = quest.EndTime - quest.StartTime;
-            }
-            else
-            {
-                Debug.Log("Cant calculate quest.TotalTime, quest.StartTime or quest.Endtime isn't set.");
-            }
-        }
-
 
         // TODO: Maybe refactor InitQuestPickUp and InitQuestDelivery to a single method (DRY but less readable)
         public void InitQuestPickUp(QPackage package)
@@ -124,6 +191,7 @@ namespace QSystem
                 package.PickUpLocation.Location.rotation);
 
             SetPackage(pickUp.GetComponent<QPickUpDelivery>(), package);
+            QuestObjects.Add(pickUp);
         }
 
         // TODO: Maybe refactor InitQuestPickUp and InitQuestDelivery to a single method (DRY but less readable)
@@ -136,6 +204,7 @@ namespace QSystem
                 package.DeliveryLocation.Location.rotation);
 
             SetPackage(delivery.GetComponent<QPickUpDelivery>(), package);
+            QuestObjects.Add(delivery);
         }
 
         public void SetPackage(QPickUpDelivery script, QPackage qPackage)
@@ -152,7 +221,6 @@ namespace QSystem
 
         public void PickUpPackage(QPackage package)
         {
-            Debug.Log("asd");
             package.PackageIsTaken = true;
             QInventory.AddQuestPackage(package);
         }

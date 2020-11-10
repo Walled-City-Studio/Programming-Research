@@ -24,7 +24,7 @@ namespace QSystem
 		}
 		
 		// TODO: Quest reward calculation shouldn't be done in QInventory
-		public void AddQuestReward(QReward qReward, bool scale, CHALLENGE_TYPE factor)
+		public void AddQuestReward(QReward qReward, bool scale = false, CHALLENGE_TYPE factor = CHALLENGE_TYPE.Easy)
         {
 			int ammount = scale ? ScaleAmmount(qReward.Ammount, (int)factor) : qReward.Ammount;
 			if (qReward.RewardType == REWARD_TYPE.Item)

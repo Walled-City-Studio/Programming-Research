@@ -22,4 +22,10 @@ MonoBehaviour:
   Title: QuestDemo
   Description: Demo to show
   QReward: {fileID: 11400000, guid: d9957f9c7641fd348933fec31c3669de, type: 2}
-  MaxDeliverTime: 300
+  MaxDeliverTime: 5
+  ChallengeType: 0
+  ScaleReward: 0
+  StartTime: 9.786913
+  EndTime: 14.828942
+  TotalTime: 5.0420294
+  QuestStatus: 3

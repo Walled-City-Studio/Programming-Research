@@ -12,7 +12,7 @@ namespace QSystem
         SerializedProperty QReward;
         SerializedProperty MaxDeliverTime;
         SerializedProperty ChallengeType;
-        SerializedProperty ScaleRewardChallenge;
+        SerializedProperty ScaleReward;
 
         private void OnEnable()
         {
@@ -23,7 +23,7 @@ namespace QSystem
             QReward = serializedObject.FindProperty("QReward");
             MaxDeliverTime = serializedObject.FindProperty("MaxDeliverTime");
             ChallengeType = serializedObject.FindProperty("ChallengeType");
-            ScaleRewardChallenge = serializedObject.FindProperty("ScaleRewardChallenge");
+            ScaleReward = serializedObject.FindProperty("ScaleReward");
         }
 
         public override void OnInspectorGUI()
@@ -37,7 +37,7 @@ namespace QSystem
             EditorGUILayout.PropertyField(QReward);
             EditorGUILayout.PropertyField(MaxDeliverTime);
             EditorGUILayout.PropertyField(ChallengeType);
-            EditorGUILayout.PropertyField(ScaleRewardChallenge);
+            EditorGUILayout.PropertyField(ScaleReward);
 
             serializedObject.ApplyModifiedProperties();
         }

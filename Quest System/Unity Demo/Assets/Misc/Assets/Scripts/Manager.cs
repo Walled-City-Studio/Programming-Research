@@ -10,8 +10,7 @@ public class Manager<T> : MonoBehaviour where T : Manager<T>
 
     private static T instance = null;
 
-    public bool showGameObject = false;
-
+    
     public static T Instance
     {
         get
@@ -32,12 +31,11 @@ public class Manager<T> : MonoBehaviour where T : Manager<T>
     public virtual void Awake()
     {
         instance = this as T;
+        //Instance.gameObject.SetActive(!hideOnLoad);
     }
 
     private void OnApplicationQuit()
     {
         isQuitting = true;
     }
-
- 
 }

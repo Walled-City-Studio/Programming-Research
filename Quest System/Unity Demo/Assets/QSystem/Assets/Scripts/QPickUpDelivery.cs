@@ -47,7 +47,6 @@ namespace QSystem
                 {
                     if(QPackage.PackageIsTaken)
                     {
-                        Debug.Log(QPackage.PackageIsTaken);
                         QHandler.Instance.DeliverPackage(QPackage);
                         Destroy(gameObject);
                     }  

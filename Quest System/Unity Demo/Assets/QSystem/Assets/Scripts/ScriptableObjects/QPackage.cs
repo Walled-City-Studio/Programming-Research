@@ -7,8 +7,12 @@ namespace QSystem
     public class QPackage : ScriptableObject
     {
         [SerializeField] public LEGAL_STATUS LegalStatus;
-        [SerializeField] public PACKAGE_SIZE Size;
         [SerializeField] public DELIVERY_TYPE DeliveryType;
+        [SerializeField] public PACKAGE_TYPE Type;
+
+        [SerializeField] float Weight;
+
+        [SerializeField] string Description;
 
         [SerializeField] public QLocation PickUpLocation;
         [SerializeField] public QLocation DeliveryLocation;

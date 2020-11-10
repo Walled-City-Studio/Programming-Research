@@ -1,31 +1,52 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace QSystem
 {
-    public class QGUIOverlay : GUIManager<QGUIOverlay>
+    public class QGUIOverlay : Manager<QGUIOverlay>
     {
         public Text QuestMaxTimeText;
         public Text QuestTotalTimeText;
 
         private GameObject QuestTimer;
 
+        private float currentCount;
+
         void Start()
         {
+            ShowQuestTimer(false);
             QuestTimer = gameObject.transform.GetChild(0).gameObject;
         }
 
-        public void setQuestTimer(Time t)
+        public void ShowQuestTimer(bool show = true)
         {
-            //QuestTimer.SetActive(show);
-            //QuestMaxTimeText.text = t.time;
+            gameObject.SetActive(show);
         }
 
-        public void showQuestTimer(bool show = true)
+        public void SetQuestTotalTime(float seconds)
         {
-            QuestTimer.SetActive(show);
+            currentCount = seconds;
+            QuestTotalTimeText.text = Math.Round(seconds).ToString();
+        }
+
+        public void SetQuestMaxTime(float seconds)
+        {
+            QuestMaxTimeText.text = seconds.ToString(); 
+        }
+
+        public void ResetTimerValues()
+        {
+            QuestMaxTimeText.text = null;
+            QuestTotalTimeText.text = null;
+            currentCount = 0f;
+        }
+
+        public float GetCurrentCount()
+        {
+            return currentCount;
         }
 
     }

@@ -18,7 +18,7 @@ namespace QSystem
 
         [SerializeField] public CHALLENGE_TYPE ChallengeType;
 
-        [SerializeField] public bool ScaleRewardChallenge;
+        [SerializeField] public bool ScaleReward;
 
         public float StartTime;
         public float EndTime;

@@ -1,12 +1,12 @@
 ﻿namespace QSystem
 {
+    public enum PACKAGE_TYPE { Normal, Enveloppe, Medium, Can, Large }
+
     public enum REGION_TYPE { Unkown, Rich, Poor, Industrial }
 
     public enum CRITERIA_TYPE { Delivery, PickUp }
 
     public enum REWARD_TYPE { Resource, Item }
-
-    public enum PACKAGE_SIZE { Small, Medium, Large }
 
     public enum RESOURCE_TYPE { Money, Gold, Silver }
 

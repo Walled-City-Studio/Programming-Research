@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : GUIManager<DialogueManager>
+public class DialogueManager : Manager<DialogueManager>
 {
     public Text nameText;
     public Text dialogueText;
