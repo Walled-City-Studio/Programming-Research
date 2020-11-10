@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Numerics;
 using UnityEngine;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
 namespace Code.Scripts.Environment
 {
@@ -12,8 +9,8 @@ namespace Code.Scripts.Environment
         public Octave[] octaves;
         public int uvScale = 1;
 
-        private MeshFilter _meshFilter;
-        private Mesh _mesh;
+        private MeshFilter meshFilter;
+        private Mesh mesh;
 
         public float GetHeight(Vector3 position)
     {
@@ -44,10 +41,10 @@ namespace Code.Scripts.Environment
                  + (max - Vector3.Distance(p3, localPos))
                  + (max - Vector3.Distance(p4, localPos) + Mathf.Epsilon);
         //weighted sum
-        var height = _mesh.vertices[Index(Mathf.CeilToInt(p1.x), Mathf.CeilToInt(p1.z))].y * (max - Vector3.Distance(p1, localPos))
-                     + _mesh.vertices[Index(Mathf.CeilToInt(p2.x), Mathf.CeilToInt(p2.z))].y * (max - Vector3.Distance(p2, localPos))
-                     + _mesh.vertices[Index(Mathf.CeilToInt(p3.x), Mathf.CeilToInt(p3.z))].y * (max - Vector3.Distance(p3, localPos))
-                     + _mesh.vertices[Index(Mathf.CeilToInt(p4.x), Mathf.CeilToInt(p4.z))].y * (max - Vector3.Distance(p4, localPos));
+        var height = mesh.vertices[Index(Mathf.CeilToInt(p1.x), Mathf.CeilToInt(p1.z))].y * (max - Vector3.Distance(p1, localPos))
+                     + mesh.vertices[Index(Mathf.CeilToInt(p2.x), Mathf.CeilToInt(p2.z))].y * (max - Vector3.Distance(p2, localPos))
+                     + mesh.vertices[Index(Mathf.CeilToInt(p3.x), Mathf.CeilToInt(p3.z))].y * (max - Vector3.Distance(p3, localPos))
+                     + mesh.vertices[Index(Mathf.CeilToInt(p4.x), Mathf.CeilToInt(p4.z))].y * (max - Vector3.Distance(p4, localPos));
 
         //scale
         return height * transform.lossyScale.y / dist;
@@ -57,23 +54,23 @@ namespace Code.Scripts.Environment
         // Start is called before the first frame update
         private void Start()
         {
-            _mesh = new Mesh();
-            _mesh.name = gameObject.name;
+            mesh = new Mesh();
+            mesh.name = gameObject.name;
 
-            _mesh.vertices = GenerateVertices();
-            _mesh.triangles = GenerateTriangles();
-            _mesh.uv = GenerateUVs();
+            mesh.vertices = GenerateVertices();
+            mesh.triangles = GenerateTriangles();
+            mesh.uv = GenerateUVs();
 
-            _mesh.RecalculateBounds();
-            _mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+            mesh.RecalculateNormals();
 
-            _meshFilter = gameObject.AddComponent<MeshFilter>();
-            _meshFilter.mesh = _mesh;
+            meshFilter = gameObject.AddComponent<MeshFilter>();
+            meshFilter.mesh = mesh;
         }
 
         private Vector2[] GenerateUVs()
         {
-            var uvs = new Vector2[_mesh.vertices.Length];
+            var uvs = new Vector2[mesh.vertices.Length];
 
             //Always set one UV over n tiles then flip the UV and set it again
             for (int x = 0; x <= dimension; x++)
@@ -91,7 +88,7 @@ namespace Code.Scripts.Environment
 
         private int[] GenerateTriangles()
         {
-            var triangles = new int[_mesh.vertices.Length * 6];
+            var triangles = new int[mesh.vertices.Length * 6];
 
             //Two triangles per tile
             for (int x = 0; x < dimension; x++)
@@ -134,7 +131,7 @@ namespace Code.Scripts.Environment
         // Update is called once per frame
         private void Update()
         {
-            var vertices = _mesh.vertices;
+            var vertices = mesh.vertices;
 
             for (int x = 0; x <= dimension; x++)
             {
@@ -164,8 +161,8 @@ namespace Code.Scripts.Environment
                 }
             }
 
-            _mesh.vertices = vertices;
-            _mesh.RecalculateNormals();
+            mesh.vertices = vertices;
+            mesh.RecalculateNormals();
         }
 
         [Serializable]
