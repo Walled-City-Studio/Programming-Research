@@ -57,17 +57,6 @@ namespace QSystem
             }
         }
 
-        public void AcceptQuest(Quest quest)
-        {
-            CurrentQuest = quest;
-            AcceptedQuests.Add(quest);
-            CurrentDialogueQuestGiver.RemoveQuest(quest);
-            SetQuestStatus(quest, QUEST_STATUS.Accept);
-            SetQuestStartTime(quest);
-            InitQuestPickUp(quest.QPackage);
-            InitQuestTimer(quest);
-        }
-
         public void InitQuestTimer(Quest quest)
         {      
             QuestMaxTime = (int)quest.MaxDeliverTime;
