@@ -69,6 +69,7 @@ namespace QSystem
         {
             yield return StartCoroutine(StartCounter(maxSeconds));
 
+            // When timer reaches max delivery time and quest isn't completed, fail quest 
             if (CurrentQuest != null && CurrentQuest.QuestStatus != QUEST_STATUS.Complete)
             {
                 FailQuest(CurrentQuest);

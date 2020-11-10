@@ -7,7 +7,7 @@ namespace QSystem
 {
 	public class QInventory
 	{
-		// RESOURCE_TYPE index acuals QuestResourceRewards resource type
+		// RESOURCE_TYPE index acuals QuestResourceReward type
 		private float[] QuestResourceRewards = new float[Enum.GetNames(typeof(RESOURCE_TYPE)).Length];
 
 		private List<GameObject> QuestItemRewards = new List<GameObject>();
