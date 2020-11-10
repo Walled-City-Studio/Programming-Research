@@ -7,6 +7,7 @@ namespace QSystem
 {
 	public class QInventory
 	{
+		// RESOURCE_TYPE index acuals QuestResourceRewards resource type
 		private float[] QuestResourceRewards = new float[Enum.GetNames(typeof(RESOURCE_TYPE)).Length];
 
 		private List<GameObject> QuestItemRewards = new List<GameObject>();
@@ -29,10 +30,12 @@ namespace QSystem
 			int ammount = scale ? ScaleAmmount(qReward.Ammount, (int)factor) : qReward.Ammount;
 			if (qReward.RewardType == REWARD_TYPE.Item)
             {
+				Debug.Log("Add quest item: " + qReward.Item.name + ", " + ammount + " times.");
 				QuestItemRewards.AddRange(Enumerable.Repeat(qReward.Item, ammount));
 			}
 			else if(qReward.RewardType == REWARD_TYPE.Resource)
             {
+				Debug.Log("Add quest resource: " + qReward.ResourceType.ToString() + ", " + ammount + " times.");
 				QuestResourceRewards[(int)qReward.ResourceType] += ammount;
 			}
         }

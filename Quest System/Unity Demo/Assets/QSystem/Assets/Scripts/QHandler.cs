@@ -21,6 +21,7 @@ namespace QSystem
         private QGiver CurrentDialogueQuestGiver;
 
         private bool ShowQuestCounter = false;
+
         private int QuestMaxTime = 0;
 
         void Start()
@@ -56,17 +57,7 @@ namespace QSystem
             }
         }
 
-        public void AcceptQuest(Quest quest)
-        {
-            CurrentQuest = quest;
-            AcceptedQuests.Add(quest);
-            CurrentDialogueQuestGiver.RemoveQuest(quest);
-            SetQuestStatus(quest, QUEST_STATUS.Accept);
-            SetQuestStartTime(quest);
-            InitQuestPickUp(quest.QPackage);
-            InitQuestDelivery(quest.QPackage);
-            InitQuestTimer(quest);
-        }
+        
 
         public void InitQuestTimer(Quest quest)
         {      
@@ -94,7 +85,20 @@ namespace QSystem
                 yield return new WaitForSeconds(1);
             }
         }
-    
+
+        private void AcceptQuest(Quest quest)
+        {
+            Debug.Log("Accept quest");
+            CurrentQuest = quest;
+            AcceptedQuests.Add(quest);
+            CurrentDialogueQuestGiver.RemoveQuest(quest);
+            SetQuestStatus(quest, QUEST_STATUS.Accept);
+            SetQuestStartTime(quest);
+            InitQuestPickUp(quest.QPackage);
+            InitQuestDelivery(quest.QPackage);
+            InitQuestTimer(quest);
+        }
+
         private void FailQuest(Quest quest)
         {
             if (quest.MaxDeliverTime <= QGUIOverlay.Instance.GetCurrentCount() + 1)

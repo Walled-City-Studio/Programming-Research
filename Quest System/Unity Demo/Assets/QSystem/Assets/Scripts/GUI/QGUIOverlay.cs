@@ -11,14 +11,11 @@ namespace QSystem
         public Text QuestMaxTimeText;
         public Text QuestTotalTimeText;
 
-        private GameObject QuestTimer;
-
         private float currentCount;
 
         void Start()
         {
             ShowQuestTimer(false);
-            QuestTimer = gameObject.transform.GetChild(0).gameObject;
         }
 
         public void ShowQuestTimer(bool show = true)

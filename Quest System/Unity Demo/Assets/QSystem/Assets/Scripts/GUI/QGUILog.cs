@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QGUIInventory : Manager<QGUIInventory>
+public class QGUILog : Manager<QGUILog>
 {
 }
