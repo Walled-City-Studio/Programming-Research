@@ -1649,7 +1649,7 @@ MonoBehaviour:
   Name: NPC
   InteractRadius: 3
   Quests:
-  - {fileID: 11400000, guid: a08c2c3c67c12bd4e824e0eb57dc13fa, type: 2}
+  - {fileID: 11400000, guid: 0651f0f0d4d3d334da885fc8f5245edd, type: 2}
 --- !u!1 &1460482481
 GameObject:
   m_ObjectHideFlags: 0

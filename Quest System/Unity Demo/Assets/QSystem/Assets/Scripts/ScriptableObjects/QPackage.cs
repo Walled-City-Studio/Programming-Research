@@ -7,7 +7,6 @@ namespace QSystem
     public class QPackage : ScriptableObject
     {
         [SerializeField] public LEGAL_STATUS LegalStatus;
-        [SerializeField] public DELIVERY_TYPE DeliveryType;
         [SerializeField] public PACKAGE_TYPE Type;
 
         [SerializeField] float Weight;
@@ -19,8 +18,6 @@ namespace QSystem
 
         [SerializeField] public GameObject PickUpPrefab;
         [SerializeField] public GameObject DeliveryPrefab;
-
-        [SerializeField] public Transform DeliveryTransform;
 
         public bool PackageIsTaken = false;
         public bool PackageIsDelivered = false;

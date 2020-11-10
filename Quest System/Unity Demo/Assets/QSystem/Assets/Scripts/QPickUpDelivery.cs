@@ -39,9 +39,9 @@ namespace QSystem
                 if (CriteriaType == CRITERIA_TYPE.PickUp)
                 {
                     QHandler.Instance.PickUpPackage(QPackage);
+                    QHandler.Instance.InitQuestDelivery(QPackage);
                     Destroy(gameObject);
                 }
-
                 // Delivery collider
                 else if (CriteriaType == CRITERIA_TYPE.Delivery)
                 {

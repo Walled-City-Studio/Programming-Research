@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bf53b195f0c5ac4a998ddec1dd0028e, type: 3}
-  m_Name: Quest
+  m_Name: Quest 1
   m_EditorClassIdentifier: 
   Dialogue:
     sentences:
-    - Name: asdaaaaa
-      SentenceText: asdasdasdad
-    - Name: 123123
-      SentenceText: 412341231
-  QPackage: {fileID: 11400000, guid: ee7aa81a9c80a6149b9303d4388e7a59, type: 2}
-  Title: QuestDemo
-  Description: Demo to show
+    - Name: ddd
+      SentenceText: fffff
+    - Name: eee
+      SentenceText: rrr
+  QPackage: {fileID: 11400000, guid: d5e1158dabacc2e44a08f730cb86f856, type: 2}
+  Title: Transform
+  Description: Test Transform locations
   QReward: {fileID: 11400000, guid: d9957f9c7641fd348933fec31c3669de, type: 2}
-  MaxDeliverTime: 30
+  MaxDeliverTime: 60
   ChallengeType: 0
   ScaleReward: 0
-  StartTime: 8.940026
-  EndTime: 13.954992
-  TotalTime: 5.014966
-  QuestStatus: 3
+  StartTime: 0
+  EndTime: 0
+  TotalTime: 0
+  QuestStatus: 0

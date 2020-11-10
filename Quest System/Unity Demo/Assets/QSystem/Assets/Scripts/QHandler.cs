@@ -57,7 +57,16 @@ namespace QSystem
             }
         }
 
-        
+        public void AcceptQuest(Quest quest)
+        {
+            CurrentQuest = quest;
+            AcceptedQuests.Add(quest);
+            CurrentDialogueQuestGiver.RemoveQuest(quest);
+            SetQuestStatus(quest, QUEST_STATUS.Accept);
+            SetQuestStartTime(quest);
+            InitQuestPickUp(quest.QPackage);
+            InitQuestTimer(quest);
+        }
 
         public void InitQuestTimer(Quest quest)
         {      
@@ -186,7 +195,6 @@ namespace QSystem
             return CurrentDialogueQuest != null && CurrentDialogueQuestGiver != null;
         }
 
-        // TODO: Maybe refactor InitQuestPickUp and InitQuestDelivery to a single method (DRY but less readable)
         public void InitQuestPickUp(QPackage package)
         {
             GameObject pickUp = Instantiate(
@@ -194,33 +202,19 @@ namespace QSystem
                 package.PickUpLocation.Location.position,
                 package.PickUpLocation.Location.rotation);
 
-            SetPackage(pickUp.GetComponent<QPickUpDelivery>(), package);
+            pickUp.GetComponent<QPickUpDelivery>().SetPackage(package);
             QuestObjects.Add(pickUp);
         }
-
-        // TODO: Maybe refactor InitQuestPickUp and InitQuestDelivery to a single method (DRY but less readable)
+               
         public void InitQuestDelivery(QPackage package)
-        {
-            // TODO: Instead of DeliveryPrefab it can be DeliveryTransform. Add additional Transform logics. See: QPackage & QPackageEditor
+        {            
             GameObject delivery = Instantiate(
                 package.DeliveryPrefab,
                 package.DeliveryLocation.Location.position,
                 package.DeliveryLocation.Location.rotation);
 
-            SetPackage(delivery.GetComponent<QPickUpDelivery>(), package);
+            delivery.GetComponent<QPickUpDelivery>().SetPackage(package);
             QuestObjects.Add(delivery);
-        }
-
-        public void SetPackage(QPickUpDelivery script, QPackage qPackage)
-        {
-            if (script != null)
-            {
-                script.SetPackage(qPackage);
-            }
-            else
-            {
-                Debug.Log("Package PickUp prefab doens't have 'QPickUpDelivery' script");
-            }
         }
 
         public void PickUpPackage(QPackage package)

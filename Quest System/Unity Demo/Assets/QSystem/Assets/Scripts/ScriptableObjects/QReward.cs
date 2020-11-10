@@ -15,39 +15,6 @@ namespace QSystem
         [SerializeField] public GameObject Item;
 
         [SerializeField] public int Ammount;
-
-        /*[SerializeField] public float MaxTimeConsumption;
-
-       private float MaxQuestTime;
-
-       private float RewardScale;
-
-       public void SetQuestTime(float maxQuestTime)
-       {
-           MaxQuestTime = maxQuestTime;
-       }
-
-       public void StopTimerAt(float CompletionTime)
-       {
-           RewardScale = (MaxTimeConsumption / CompletionTime) * 100.0f;
-       }
-
-       public List<GameObject> GetRewardObject()
-       {
-           if (RewardScale <= MaxQuestTime)
-           {
-               List<GameObject> RewardList = new List<GameObject>();
-               Ammount *= (int)(RewardScale);
-               for(int i = 0; i != Ammount; i++)
-               {
-                   RewardList.Add(Item);
-               }
-               return RewardList;
-           }
-           else
-           {
-               return null;
-           }
-       }*/
+                
     }
 }
