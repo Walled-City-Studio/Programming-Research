@@ -24,11 +24,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("ToggleQuestLog"))
-        {
-            // Add toggle Quest Log here
-        }
-
         if (controller.isGrounded)
         {
             moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));

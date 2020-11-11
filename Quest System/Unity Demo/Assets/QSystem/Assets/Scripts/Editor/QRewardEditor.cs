@@ -12,10 +12,10 @@ namespace QSystem
 
         private void OnEnable()
         {
-            RewardType = serializedObject.FindProperty("RewardType");
-            ResourceType = serializedObject.FindProperty("ResourceType");
-            Item = serializedObject.FindProperty("Item");
-            Ammount = serializedObject.FindProperty("Ammount");
+            RewardType = serializedObject.FindProperty("rewardType");
+            ResourceType = serializedObject.FindProperty("resourceType");
+            Item = serializedObject.FindProperty("item");
+            Ammount = serializedObject.FindProperty("ammount");
         }
 
         public override void OnInspectorGUI()

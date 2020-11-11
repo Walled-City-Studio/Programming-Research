@@ -16,14 +16,14 @@ namespace QSystem
 
         private void OnEnable()
         {
-            Dialogue = serializedObject.FindProperty("Dialogue");
-            QPackage = serializedObject.FindProperty("QPackage");
-            Title = serializedObject.FindProperty("Title");
-            Description = serializedObject.FindProperty("Description");
-            QReward = serializedObject.FindProperty("QReward");
-            MaxDeliverTime = serializedObject.FindProperty("MaxDeliverTime");
-            ChallengeType = serializedObject.FindProperty("ChallengeType");
-            ScaleReward = serializedObject.FindProperty("ScaleReward");
+            Dialogue = serializedObject.FindProperty("dialogue");
+            QPackage = serializedObject.FindProperty("qPackage");
+            Title = serializedObject.FindProperty("title");
+            Description = serializedObject.FindProperty("description");
+            QReward = serializedObject.FindProperty("qReward");
+            MaxDeliverTime = serializedObject.FindProperty("maxDeliverTime");
+            ChallengeType = serializedObject.FindProperty("challengeType");
+            ScaleReward = serializedObject.FindProperty("scaleReward");
         }
 
         public override void OnInspectorGUI()

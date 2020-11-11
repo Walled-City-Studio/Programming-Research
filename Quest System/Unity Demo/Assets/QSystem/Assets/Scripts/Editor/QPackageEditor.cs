@@ -16,14 +16,14 @@ namespace QSystem
 
         private void OnEnable()
         {
-            Type = serializedObject.FindProperty("Type");
-            Weight = serializedObject.FindProperty("Weight");
-            Description = serializedObject.FindProperty("Description");
-            PickUpLocation = serializedObject.FindProperty("PickUpLocation");
-            DeliveryLocation = serializedObject.FindProperty("DeliveryLocation");
-            LegalStatus = serializedObject.FindProperty("LegalStatus");
-            PickUpPrefab = serializedObject.FindProperty("PickUpPrefab");
-            DeliveryPrefab = serializedObject.FindProperty("DeliveryPrefab");
+            Type = serializedObject.FindProperty("type");
+            Weight = serializedObject.FindProperty("weight");
+            Description = serializedObject.FindProperty("description");
+            PickUpLocation = serializedObject.FindProperty("pickUpLocation");
+            DeliveryLocation = serializedObject.FindProperty("deliveryLocation");
+            LegalStatus = serializedObject.FindProperty("legalStatus");
+            PickUpPrefab = serializedObject.FindProperty("pickUpPrefab");
+            DeliveryPrefab = serializedObject.FindProperty("deliveryPrefab");
         }
 
         public override void OnInspectorGUI()

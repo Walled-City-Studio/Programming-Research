@@ -24,6 +24,7 @@ public class DialogueManager : Manager<DialogueManager>
     void Start()
     {
         sentences = new Queue<Sentence>();
+        AcceptButton = GameObject.Find("AcceptButton");
         AcceptButton.SetActive(false);
     }
 
