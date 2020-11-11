@@ -8,14 +8,14 @@ namespace QSystem
         SerializedProperty RewardType;
         SerializedProperty ResourceType;
         SerializedProperty Item;
-        SerializedProperty Ammount;
+        SerializedProperty Amount;
 
         private void OnEnable()
         {
             RewardType = serializedObject.FindProperty("rewardType");
             ResourceType = serializedObject.FindProperty("resourceType");
             Item = serializedObject.FindProperty("item");
-            Ammount = serializedObject.FindProperty("ammount");
+            Amount = serializedObject.FindProperty("amount");
         }
 
         public override void OnInspectorGUI()
@@ -34,7 +34,7 @@ namespace QSystem
                 EditorGUILayout.PropertyField(Item);
             }
 
-            EditorGUILayout.PropertyField(Ammount);
+            EditorGUILayout.PropertyField(Amount);
 
             serializedObject.ApplyModifiedProperties();
         }

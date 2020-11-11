@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bc3b8a81683f34eae709439b88552b, type: 3}
   m_Name: TransformPackage
   m_EditorClassIdentifier: 
-  LegalStatus: 0
-  Type: 0
-  Weight: 0
-  Description: 
-  PickUpLocation: {fileID: 11400000, guid: 143fe49eee264ac4ca8b21309c31eb9b, type: 2}
-  DeliveryLocation: {fileID: 11400000, guid: d4e349a4be447494a8552dc6e9b2b937, type: 2}
-  PickUpPrefab: {fileID: 2105319246246217021, guid: 8b22b1c5ea0a92248aea0394269ea0b0,
+  legalStatus: 0
+  type: 0
+  weight: 0
+  description: 
+  pickUpLocation: {fileID: 11400000, guid: 143fe49eee264ac4ca8b21309c31eb9b, type: 2}
+  deliveryLocation: {fileID: 11400000, guid: d4e349a4be447494a8552dc6e9b2b937, type: 2}
+  pickUpPrefab: {fileID: 2105319246246217021, guid: 8b22b1c5ea0a92248aea0394269ea0b0,
     type: 3}
-  DeliveryPrefab: {fileID: 8496003030853320465, guid: 0ae6f386a3833324eb1b0e87eae9a39c,
+  deliveryPrefab: {fileID: 8496003030853320465, guid: 0ae6f386a3833324eb1b0e87eae9a39c,
     type: 3}
-  PackageIsTaken: 0
-  PackageIsDelivered: 0
+  packageIsTaken: 1
+  packageIsDelivered: 1

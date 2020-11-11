@@ -27,28 +27,28 @@ namespace QSystem
 		// TODO: Quest reward calculation shouldn't be done in QInventory
 		public void AddQuestReward(QReward qReward, bool scale = false, CHALLENGE_TYPE factor = CHALLENGE_TYPE.EASY)
         {
-			int ammount = scale ? ScaleAmmount(qReward.ammount, (int)factor) : qReward.ammount;
+			int amount = scale ? ScaleAmount(qReward.amount, (int)factor) : qReward.amount;
 			if (qReward.rewardType == REWARD_TYPE.ITEM)
             {
-				Debug.Log("Add quest item: " + qReward.item.name + ", " + ammount + " times.");
-				questItemRewards.AddRange(Enumerable.Repeat(qReward.item, ammount));
+				Debug.Log("Add quest item: " + qReward.item.name + ", " + amount + " times.");
+				questItemRewards.AddRange(Enumerable.Repeat(qReward.item, amount));
 			}
 			else if(qReward.rewardType == REWARD_TYPE.RESOURCE)
             {
-				Debug.Log("Add quest resource: " + qReward.resourceType.ToString() + ", " + ammount + " times.");
-				questResourceRewards[(int)qReward.resourceType] += ammount;
+				Debug.Log("Add quest resource: " + qReward.resourceType.ToString() + ", " + amount + " times.");
+				questResourceRewards[(int)qReward.resourceType] += amount;
 			}
         }
 
 		// TODO: Quest reward calculation shouldn't be done in QInventory
-		public int ScaleAmmount(int ammount, int factor)
+		public int ScaleAmount(int amount, int factor)
         {
-			return ammount + (factor * ammount);
+			return amount + (factor * amount);
 		}
 
-		public void RemoveQuestResource(RESOURCE_TYPE resourceType, int ammount)
+		public void RemoveQuestResource(RESOURCE_TYPE resourceType, int amount)
 		{
-			questResourceRewards[(int)resourceType] += ammount;
+			questResourceRewards[(int)resourceType] += amount;
 		}
 
 		public void RemoveQuestItem(QPackage qPackage)

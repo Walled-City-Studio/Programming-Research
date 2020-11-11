@@ -1276,8 +1276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7031ee93be07b5b4d86ad040fc1526f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuestMaxTimeText: {fileID: 360581601}
-  QuestTotalTimeText: {fileID: 875863026}
+  questMaxTimeText: {fileID: 360581601}
+  questTotalTimeText: {fileID: 875863026}
 --- !u!1 &934614942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,10 +1522,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91519eb3b67bd84ab35cf70349d4b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
   nameText: {fileID: 868043068}
   dialogueText: {fileID: 1750693257}
   animator: {fileID: 183559104}
-  canvas: {fileID: 0}
 --- !u!4 &1156075152
 Transform:
   m_ObjectHideFlags: 0
@@ -1646,9 +1646,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b38889192e61b642b08f3de62077fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: NPC
-  InteractRadius: 3
-  Quests:
+  name: NPC
+  interactRadius: 3
+  quests:
   - {fileID: 11400000, guid: 0651f0f0d4d3d334da885fc8f5245edd, type: 2}
 --- !u!1 &1460482481
 GameObject:

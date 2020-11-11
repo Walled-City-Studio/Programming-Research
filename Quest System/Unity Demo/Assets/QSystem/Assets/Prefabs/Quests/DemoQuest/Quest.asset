@@ -12,20 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf53b195f0c5ac4a998ddec1dd0028e, type: 3}
   m_Name: Quest
   m_EditorClassIdentifier: 
-  Dialogue:
-    sentences:
-    - Name: asdaaaaa
-      SentenceText: asdasdasdad
-    - Name: 123123
-      SentenceText: 412341231
-  QPackage: {fileID: 11400000, guid: ee7aa81a9c80a6149b9303d4388e7a59, type: 2}
-  Title: QuestDemo
-  Description: Demo to show
-  QReward: {fileID: 11400000, guid: d9957f9c7641fd348933fec31c3669de, type: 2}
-  MaxDeliverTime: 30
-  ChallengeType: 0
-  ScaleReward: 0
-  StartTime: 8.940026
-  EndTime: 13.954992
-  TotalTime: 5.014966
+  dialogue:
+    sentences: []
+    dialogueOptions: []
+  qPackage: {fileID: 11400000, guid: ee7aa81a9c80a6149b9303d4388e7a59, type: 2}
+  title: 
+  description: 
+  qReward: {fileID: 11400000, guid: d9957f9c7641fd348933fec31c3669de, type: 2}
+  maxDeliverTime: 30
+  challengeType: 0
+  scaleReward: 0
+  startTime: 0
+  endTime: 0
+  totalTime: 0
   QuestStatus: 3

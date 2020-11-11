@@ -18,7 +18,7 @@ namespace QSystem
         public GameObject item;
 
         [SerializeField] 
-        public int ammount;
+        public int amount;
                 
     }
 }

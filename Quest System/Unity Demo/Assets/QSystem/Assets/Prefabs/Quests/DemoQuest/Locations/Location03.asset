@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f60c51ba044ccd45ba6feea84792cad, type: 3}
   m_Name: Location03
   m_EditorClassIdentifier: 
-  BoatID: 1
-  LocationName: 
-  LocationAdress: 
-  LocationNotes: 
-  RegionType: 2
-  Location: {fileID: 3138088665409307440, guid: 1033ce1da4cdc3b41a0a6679f841d3b3,
+  boatID: 0
+  locationName: 
+  locationAdress: 
+  locationNotes: 
+  regionType: 0
+  location: {fileID: 3138088665409307440, guid: 1033ce1da4cdc3b41a0a6679f841d3b3,
     type: 3}
