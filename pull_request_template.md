@@ -4,3 +4,4 @@
 - [ ] De code is getest.
 - [ ] Refactoring van de code is voltooid.
 - [ ] De branch is gerebased.
+- [ ] De code voldoet aan de styleguide
