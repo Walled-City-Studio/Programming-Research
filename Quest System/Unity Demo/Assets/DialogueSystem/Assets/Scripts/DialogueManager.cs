@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : Manager<DialogueManager>
 {
     public Canvas canvas;
 
@@ -17,13 +17,14 @@ public class DialogueManager : MonoBehaviour
     private Queue<Sentence> sentences; //This can also be an array if we want to go back in the list to previous dialogue options
     private DialogueOption[] dialogueOptions;
     private DialogueOption chosenOption;
+    private GameObject AcceptButton;
     private bool dialogueOptionFinished = false;
 
     // Start is called before the first frame update
     void Start()
     {
         sentences = new Queue<Sentence>();
-        
+        AcceptButton.SetActive(false);
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -42,6 +43,11 @@ public class DialogueManager : MonoBehaviour
         dialogueOptions = dialogue.dialogueOptions;
 
         DisplayNextSentence();
+    }
+
+    public void SetAgreeButton(bool isActive)
+    {
+        AcceptButton.SetActive(isActive);
     }
 
     public void DisplayNextSentence()
@@ -89,6 +95,10 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         animator.SetBool("isOpen", false);
+        if (QSystem.QHandler.Instance != null)
+        {
+            QSystem.QHandler.Instance.SetCurrentDiaglogueQuest();
+        }
     }
 
     public void EnqueueDialogueAfterOption(DialogueOption option)
