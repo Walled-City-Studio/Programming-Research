@@ -94,7 +94,6 @@ namespace QSystem
             SetQuestStatus(quest, QUEST_STATUS.ACCEPT);
             SetQuestStartTime(quest);
             InitQuestPickUp(quest.qPackage);
-            InitQuestDelivery(quest.qPackage);
             InitQuestTimer(quest);
         }
 
