@@ -63,6 +63,7 @@ crashlytics-build.properties
 
 # Editors
 .idea
+**/.idea
 .vs
 .vscode
 .history
