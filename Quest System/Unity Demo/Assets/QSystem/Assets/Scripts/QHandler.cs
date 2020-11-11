@@ -221,7 +221,7 @@ namespace QSystem
             CompleteQuest(currentQuest);
         }
 
-        public void SetCurrentDiaglogueQuest(Quest quest = null, QGiver qGiver = null)
+        public void SetCurrentDialogueQuest(Quest quest = null, QGiver qGiver = null)
         {
             currentDialogueQuest = quest;
             currentDialogueQuestGiver = qGiver;

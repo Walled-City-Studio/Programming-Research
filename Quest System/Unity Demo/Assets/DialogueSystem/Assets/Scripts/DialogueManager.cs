@@ -97,7 +97,7 @@ public class DialogueManager : Manager<DialogueManager>
         animator.SetBool("isOpen", false);
         if (QSystem.QHandler.Instance != null)
         {
-            QSystem.QHandler.Instance.SetCurrentDiaglogueQuest();
+            QSystem.QHandler.Instance.SetCurrentDialogueQuest();
         }
     }
 

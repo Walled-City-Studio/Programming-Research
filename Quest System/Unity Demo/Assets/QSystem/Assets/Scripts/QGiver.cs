@@ -41,7 +41,7 @@ namespace QSystem
             if(other.gameObject.CompareTag("Player") && nextQuest != null)
             {
                 QHandler.Instance.AddQuestDiscovered(nextQuest);
-                QHandler.Instance.SetCurrentDiaglogueQuest(nextQuest, this);
+                QHandler.Instance.SetCurrentDialogueQuest(nextQuest, this);
                 DialogueManager.Instance.SetAgreeButton(true);
                 DialogueManager.Instance.StartDialogue(nextQuest.dialogue);
             }
@@ -49,7 +49,7 @@ namespace QSystem
 
         void OnTriggerExit(Collider other)
         {
-            QHandler.Instance.SetCurrentDiaglogueQuest();
+            QHandler.Instance.SetCurrentDialogueQuest();
             DialogueManager.Instance.SetAgreeButton(false);
             DialogueManager.Instance.EndDialogue();
         }
