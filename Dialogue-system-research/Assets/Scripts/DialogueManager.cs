@@ -58,26 +58,10 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 //Remove continue button and only add option buttons
-                transform.GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false); // Clean up
-                int iterator = 0;
-                foreach (DialogueOption op in dialogueOptions)
+                transform.Find("Canvas/Dialoguebox/ContinueButton").gameObject.SetActive(false);
+                for (int i = 0; i < dialogueOptions.Length; ++i)
                 {
-                    GameObject button = new GameObject();
-                    button.AddComponent<RectTransform>();
-                    button.GetComponent<RectTransform>().position = new Vector3(0, 0, 0);
-                    button.transform.SetParent(canvas.transform, false);
-                    button.AddComponent<Button>();
-                    button.AddComponent<Text>();
-                    button.name = op.Option;
-                    button.GetComponent<Text>().text = op.Option;
-                    button.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
-                    button.GetComponent<Text>().color = Color.black;
-                    button.GetComponent<RectTransform>().sizeDelta = (new Vector2(100,20));
-                    
-                    button.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -20 - iterator * 20, 0);
-                    button.GetComponent<Button>().onClick.AddListener(delegate { EnqueueDialogueAfterOption(op); });
-                    Debug.Log($"Added option: {op.Option} at x: {button.GetComponent<RectTransform>().position.x}, and y: {button.GetComponent<RectTransform>().position.y}");
-                    ++iterator;
+                    InstantiatieButton(dialogueOptions[i], i);
                 }
                 dialogueOptionFinished = true;
            }
@@ -115,11 +99,29 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
-        transform.GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(true);
+        transform.Find("Canvas/Dialoguebox/ContinueButton").gameObject.SetActive(true);
         DisplayNextSentence();
         foreach (DialogueOption op in dialogueOptions)
         {
             Destroy(GameObject.Find(op.Option));
         }
+    }
+
+    private void InstantiatieButton(DialogueOption op, int nButton)
+    {
+        GameObject button = new GameObject();
+        button.AddComponent<RectTransform>();
+        button.GetComponent<RectTransform>().position = Vector3.zero;
+        button.transform.SetParent(canvas.transform, false);
+        button.AddComponent<Button>();
+        button.AddComponent<Text>();
+        button.name = op.Option;
+        button.GetComponent<Text>().text = op.Option;
+        button.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+        button.GetComponent<Text>().color = Color.black;
+        button.GetComponent<RectTransform>().sizeDelta = (new Vector2(100, 20));
+
+        button.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -20 - nButton * 20, 0);
+        button.GetComponent<Button>().onClick.AddListener(delegate { EnqueueDialogueAfterOption(op); });
     }
 }
