@@ -6,11 +6,11 @@ namespace Code.Scripts.Environment
     public class WaterFloat : MonoBehaviour
     {
         //public properties
-        public float airDrag = 1;
-        public float waterDrag = 10;
-        public bool affectDirection = true;
-        public bool attachToSurface;
-        public Transform[] floatPoints;
+        [SerializeField] private float airDrag = 1;
+        [SerializeField] private float waterDrag = 10;
+        [SerializeField] private bool affectDirection = true;
+        [SerializeField] private bool attachToSurface;
+        [SerializeField] private Transform[] floatPoints;
 
         //used components
         private Rigidbody rigidbody;
@@ -25,7 +25,10 @@ namespace Code.Scripts.Environment
         private Vector3 targetUp;
         private Vector3 centerOffset;
 
-        private Vector3 Center => transform.position + centerOffset;
+        private Vector3 Center
+        {
+            get { return transform.position + centerOffset; }
+        }
 
         // Start is called before the first frame update
         private void Awake()

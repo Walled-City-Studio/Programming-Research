@@ -5,9 +5,18 @@ namespace Code.Scripts.Environment
 {
     public class Waves : MonoBehaviour
     {
-        public int dimension = 10;
-        public Octave[] octaves;
-        public int uvScale = 1;
+        [Serializable]
+        public struct Octave
+        {
+            public Vector2 speed;
+            public Vector2 scale;
+            public float height;
+            public bool alternate;
+        }
+        
+        [SerializeField] private int dimension = 10;
+        [SerializeField] private Octave[] octaves;
+        [SerializeField] private int uvScale = 1;
 
         private MeshFilter meshFilter;
         private Mesh mesh;
@@ -163,15 +172,6 @@ namespace Code.Scripts.Environment
 
             mesh.vertices = vertices;
             mesh.RecalculateNormals();
-        }
-
-        [Serializable]
-        public struct Octave
-        {
-            public Vector2 speed;
-            public Vector2 scale;
-            public float height;
-            public bool alternate;
         }
     }
 }
