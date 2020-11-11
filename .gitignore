@@ -61,3 +61,9 @@ crashlytics-build.properties
 # Mac BS
 .DS_Store
 
+# Editors
+.idea
+.vs
+.vscode
+.history
+
