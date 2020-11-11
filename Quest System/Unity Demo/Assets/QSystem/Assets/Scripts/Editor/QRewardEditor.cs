@@ -24,12 +24,12 @@ namespace QSystem
 
             EditorGUILayout.PropertyField(RewardType);
 
-            if (RewardType.enumValueIndex == (int)REWARD_TYPE.Resource)
+            if (RewardType.enumValueIndex == (int)REWARD_TYPE.RESOURCE)
             {
                 EditorGUILayout.PropertyField(ResourceType);
             }
 
-            else if (RewardType.enumValueIndex == (int)REWARD_TYPE.Item)
+            else if (RewardType.enumValueIndex == (int)REWARD_TYPE.ITEM)
             {
                 EditorGUILayout.PropertyField(Item);
             }

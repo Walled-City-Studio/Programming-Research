@@ -8,13 +8,17 @@ namespace QSystem
     [CreateAssetMenu(fileName = "QuestReward", menuName = "Quest/Quest Reward", order = 3)]
     public class QReward : ScriptableObject
     {
-        [SerializeField] public REWARD_TYPE RewardType;
+        [SerializeField] 
+        public REWARD_TYPE rewardType;
         
-        [SerializeField] public RESOURCE_TYPE ResourceType;
+        [SerializeField] 
+        public RESOURCE_TYPE resourceType;
 
-        [SerializeField] public GameObject Item;
+        [SerializeField] 
+        public GameObject item;
 
-        [SerializeField] public int Ammount;
+        [SerializeField] 
+        public int ammount;
                 
     }
 }

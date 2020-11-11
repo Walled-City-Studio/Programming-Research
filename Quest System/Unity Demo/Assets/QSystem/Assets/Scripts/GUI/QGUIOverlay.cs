@@ -8,8 +8,8 @@ namespace QSystem
 {
     public class QGUIOverlay : Manager<QGUIOverlay>
     {
-        public Text QuestMaxTimeText;
-        public Text QuestTotalTimeText;
+        public Text questMaxTimeText;
+        public Text questTotalTimeText;
 
         private float currentCount;
 
@@ -26,18 +26,18 @@ namespace QSystem
         public void SetQuestTotalTime(float seconds)
         {
             currentCount = seconds;
-            QuestTotalTimeText.text = Math.Round(seconds).ToString();
+            questTotalTimeText.text = Math.Round(seconds).ToString();
         }
 
         public void SetQuestMaxTime(float seconds)
         {
-            QuestMaxTimeText.text = seconds.ToString(); 
+            questMaxTimeText.text = seconds.ToString(); 
         }
 
         public void ResetTimerValues()
         {
-            QuestMaxTimeText.text = null;
-            QuestTotalTimeText.text = null;
+            questMaxTimeText.text = null;
+            questTotalTimeText.text = null;
             currentCount = 0f;
         }
 

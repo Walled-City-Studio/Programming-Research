@@ -5,26 +5,34 @@ namespace QSystem
     [CreateAssetMenu(fileName = "Quest", menuName = "Quest/Quest", order = 0)]
     public class Quest : ScriptableObject
     {
-        [SerializeField] public Dialogue Dialogue;
+        [SerializeField] 
+        public Dialogue dialogue;
 
-        [SerializeField] public QPackage QPackage;
+        [SerializeField] 
+        public QPackage qPackage;
 
-        [SerializeField] public string Title;
-        [SerializeField] public string Description;
+        [SerializeField] 
+        public string title;
+        [SerializeField] 
+        public string description;
 
-        [SerializeField] public QReward QReward;
+        [SerializeField] 
+        public QReward qReward;
 
-        [SerializeField] public float MaxDeliverTime;
+        [SerializeField] 
+        public float maxDeliverTime;
 
-        [SerializeField] public CHALLENGE_TYPE ChallengeType;
+        [SerializeField] 
+        public CHALLENGE_TYPE challengeType;
 
-        [SerializeField] public bool ScaleReward;
+        [SerializeField] 
+        public bool scaleReward;
 
-        public float StartTime;
-        public float EndTime;
-        public float TotalTime;
+        public float startTime;
+        public float endTime;
+        public float totalTime;
 
-        public QUEST_STATUS QuestStatus = QUEST_STATUS.Default;
+        public QUEST_STATUS QuestStatus = QUEST_STATUS.DEFAULT;
     }
 }
 

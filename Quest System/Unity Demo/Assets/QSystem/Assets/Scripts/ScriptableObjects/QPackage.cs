@@ -6,26 +6,34 @@ namespace QSystem
     [CreateAssetMenu(fileName = "QuestPackage", menuName = "Quest/Quest Package", order = 1)]
     public class QPackage : ScriptableObject
     {
-        [SerializeField] public LEGAL_STATUS LegalStatus;
-        [SerializeField] public PACKAGE_TYPE Type;
+        [SerializeField] 
+        public LEGAL_STATUS legalStatus;
+        [SerializeField] 
+        public PACKAGE_TYPE type;
 
-        [SerializeField] float Weight;
+        [SerializeField] 
+        float weight;
 
-        [SerializeField] string Description;
+        [SerializeField] 
+        string description;
 
-        [SerializeField] public QLocation PickUpLocation;
-        [SerializeField] public QLocation DeliveryLocation;
+        [SerializeField] 
+        public QLocation pickUpLocation;
+        [SerializeField] 
+        public QLocation deliveryLocation;
 
-        [SerializeField] public GameObject PickUpPrefab;
-        [SerializeField] public GameObject DeliveryPrefab;
+        [SerializeField] 
+        public GameObject pickUpPrefab;
+        [SerializeField] 
+        public GameObject deliveryPrefab;
 
-        public bool PackageIsTaken = false;
-        public bool PackageIsDelivered = false;
+        public bool packageIsTaken = false;
+        public bool packageIsDelivered = false;
 
         public void OnEnable()
         {
-            PackageIsTaken = false;
-            PackageIsDelivered = false;
+            packageIsTaken = false;
+            packageIsDelivered = false;
         }
 
     }

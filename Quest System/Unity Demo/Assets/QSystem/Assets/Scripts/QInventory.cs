@@ -8,35 +8,35 @@ namespace QSystem
 	public class QInventory
 	{
 		// RESOURCE_TYPE index acuals QuestResourceReward type
-		private float[] QuestResourceRewards = new float[Enum.GetNames(typeof(RESOURCE_TYPE)).Length];
+		private float[] questResourceRewards = new float[Enum.GetNames(typeof(RESOURCE_TYPE)).Length];
 
-		private List<GameObject> QuestItemRewards = new List<GameObject>();
+		private List<GameObject> questItemRewards = new List<GameObject>();
 
-		private List<QPackage> QPackages = new List<QPackage>();
+		private List<QPackage> qPackages = new List<QPackage>();
 
 		public void AddQuestPackage(QPackage qPackage)
 		{
-			QPackages.Add(qPackage);
+			qPackages.Add(qPackage);
 		}
 
 		public void RemoveQuestPackage(QPackage qPackage)
         {
-			QPackages.Remove(qPackage);
+			qPackages.Remove(qPackage);
 		}
 		
 		// TODO: Quest reward calculation shouldn't be done in QInventory
-		public void AddQuestReward(QReward qReward, bool scale = false, CHALLENGE_TYPE factor = CHALLENGE_TYPE.Easy)
+		public void AddQuestReward(QReward qReward, bool scale = false, CHALLENGE_TYPE factor = CHALLENGE_TYPE.EASY)
         {
-			int ammount = scale ? ScaleAmmount(qReward.Ammount, (int)factor) : qReward.Ammount;
-			if (qReward.RewardType == REWARD_TYPE.Item)
+			int ammount = scale ? ScaleAmmount(qReward.ammount, (int)factor) : qReward.ammount;
+			if (qReward.rewardType == REWARD_TYPE.ITEM)
             {
-				Debug.Log("Add quest item: " + qReward.Item.name + ", " + ammount + " times.");
-				QuestItemRewards.AddRange(Enumerable.Repeat(qReward.Item, ammount));
+				Debug.Log("Add quest item: " + qReward.item.name + ", " + ammount + " times.");
+				questItemRewards.AddRange(Enumerable.Repeat(qReward.item, ammount));
 			}
-			else if(qReward.RewardType == REWARD_TYPE.Resource)
+			else if(qReward.rewardType == REWARD_TYPE.RESOURCE)
             {
-				Debug.Log("Add quest resource: " + qReward.ResourceType.ToString() + ", " + ammount + " times.");
-				QuestResourceRewards[(int)qReward.ResourceType] += ammount;
+				Debug.Log("Add quest resource: " + qReward.resourceType.ToString() + ", " + ammount + " times.");
+				questResourceRewards[(int)qReward.resourceType] += ammount;
 			}
         }
 
@@ -48,12 +48,12 @@ namespace QSystem
 
 		public void RemoveQuestResource(RESOURCE_TYPE resourceType, int ammount)
 		{
-			QuestResourceRewards[(int)resourceType] += ammount;
+			questResourceRewards[(int)resourceType] += ammount;
 		}
 
 		public void RemoveQuestItem(QPackage qPackage)
 		{
-			QPackages.Remove(qPackage);
+			qPackages.Remove(qPackage);
 		}
 
 	}

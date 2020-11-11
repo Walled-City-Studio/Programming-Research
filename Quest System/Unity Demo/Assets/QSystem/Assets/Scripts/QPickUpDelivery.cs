@@ -4,13 +4,13 @@ namespace QSystem
 {
     public class QPickUpDelivery : MonoBehaviour
     {
-        public CRITERIA_TYPE CriteriaType;
+        public CRITERIA_TYPE criteriaType;
 
-        public float InteractRadius = 3f;
+        public float interactRadius = 3f;
 
-        private SphereCollider SphereCollider;
+        private SphereCollider sphereCollider;
 
-        private QPackage QPackage;
+        private QPackage qPackage;
 
         void Start()
         {
@@ -19,15 +19,15 @@ namespace QSystem
 
         void AddSphereCollider(Vector3? center = null)
         {
-            SphereCollider = gameObject.AddComponent<SphereCollider>();
-            SphereCollider.isTrigger = true;
-            SphereCollider.center = center == null ? Vector3.zero : (Vector3)center;
-            SphereCollider.radius = InteractRadius;
+            sphereCollider = gameObject.AddComponent<SphereCollider>();
+            sphereCollider.isTrigger = true;
+            sphereCollider.center = center == null ? Vector3.zero : (Vector3)center;
+            sphereCollider.radius = interactRadius;
         }
 
         void OnTriggerEnter(Collider other)
         {
-            if (QPackage == null)
+            if (qPackage == null)
             {
                 Debug.Log("Package is not set for PickUp prefab or Delivery prefab/transform.");
                 return;
@@ -36,18 +36,18 @@ namespace QSystem
             if (other.gameObject.CompareTag("Player"))
             {
                 // Pickup collider
-                if (CriteriaType == CRITERIA_TYPE.PickUp)
+                if (criteriaType == CRITERIA_TYPE.PICK_UP)
                 {
-                    QHandler.Instance.PickUpPackage(QPackage);
-                    QHandler.Instance.InitQuestDelivery(QPackage);
+                    QHandler.Instance.PickUpPackage(qPackage);
+                    QHandler.Instance.InitQuestDelivery(qPackage);
                     Destroy(gameObject);
                 }
                 // Delivery collider
-                else if (CriteriaType == CRITERIA_TYPE.Delivery)
+                else if (criteriaType == CRITERIA_TYPE.DELIVERY)
                 {
-                    if(QPackage.PackageIsTaken)
+                    if(qPackage.packageIsTaken)
                     {
-                        QHandler.Instance.DeliverPackage(QPackage);
+                        QHandler.Instance.DeliverPackage(qPackage);
                         Destroy(gameObject);
                     }  
                     else
@@ -60,7 +60,7 @@ namespace QSystem
 
         public void SetPackage(QPackage qPackage)
         {
-            QPackage = qPackage;
+            this.qPackage = qPackage;
         }
 
     }
