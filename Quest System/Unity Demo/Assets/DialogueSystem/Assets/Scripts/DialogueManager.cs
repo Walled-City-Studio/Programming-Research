@@ -1,39 +1,45 @@
-﻿using QSystem;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class DialogueManager : Manager<DialogueManager>
+public class DialogueManager : MonoBehaviour
 {
+    public Canvas canvas;
+
     public Text nameText;
     public Text dialogueText;
 
     public Animator animator;
 
-    public GameObject canvas;
-
     private Queue<Sentence> sentences; //This can also be an array if we want to go back in the list to previous dialogue options
+    private DialogueOption[] dialogueOptions;
+    private DialogueOption chosenOption;
+    private bool dialogueOptionFinished = false;
 
-    private GameObject AcceptButton;
-
-
+    // Start is called before the first frame update
     void Start()
     {
         sentences = new Queue<Sentence>();
-        AcceptButton = GameObject.Find("AcceptButton");
-        AcceptButton.SetActive(false);
+        
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
         animator.SetBool("isOpen", true);
+
+        dialogueOptionFinished = false;
+
         sentences.Clear();
 
         foreach(Sentence sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
+
+        dialogueOptions = dialogue.dialogueOptions;
 
         DisplayNextSentence();
     }
@@ -42,14 +48,32 @@ public class DialogueManager : Manager<DialogueManager>
     {
         if(sentences.Count == 0)
         {
-            EndDialogue();
-            return;
+            Debug.Log("No more sentences");
+            if(dialogueOptions.Length == 0 || dialogueOptionFinished)
+            {
+                Debug.Log($"ending based on length: {dialogueOptions.Length == 0} or on optionfinished: {dialogueOptionFinished}");
+                EndDialogue();
+                return;
+            } 
+            else
+            {
+                //Remove continue button and only add option buttons
+                transform.Find("Canvas/Dialoguebox/ContinueButton").gameObject.SetActive(false);
+                for (int i = 0; i < dialogueOptions.Length; ++i)
+                {
+                    InstantiatieButton(dialogueOptions[i], i);
+                }
+                dialogueOptionFinished = true;
+           }
         }
-
-        Sentence nextSentence = sentences.Dequeue();
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(nextSentence.SentenceText));
-        nameText.text = nextSentence.Name;
+        else
+        {
+            Debug.Log($"Sentences remaining before dequeue: {sentences.Count}");
+            Sentence nextSentence = sentences.Dequeue();
+            StopAllCoroutines();
+            StartCoroutine(TypeSentence(nextSentence.SentenceText));
+            nameText.text = nextSentence.Name;
+        }
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -65,16 +89,39 @@ public class DialogueManager : Manager<DialogueManager>
     public void EndDialogue()
     {
         animator.SetBool("isOpen", false);
+    }
 
-        // TODO: Maybe replace this with a trigger and keep `EndDialogue` intact.
-        if(QHandler.Instance != null)
+    public void EnqueueDialogueAfterOption(DialogueOption option)
+    {
+        chosenOption = option;
+        Debug.Log($"Adding dialogue after option: {option.Option}");
+        foreach (Sentence sentence in option.FollowupDialogue)
         {
-            QHandler.Instance.SetCurrentDiaglogueQuest();
+            sentences.Enqueue(sentence);
+        }
+        transform.Find("Canvas/Dialoguebox/ContinueButton").gameObject.SetActive(true);
+        DisplayNextSentence();
+        foreach (DialogueOption op in dialogueOptions)
+        {
+            Destroy(GameObject.Find(op.Option));
         }
     }
 
-    public void SetAgreeButton(bool isActive)
+    private void InstantiatieButton(DialogueOption op, int nButton)
     {
-        AcceptButton.SetActive(isActive);
+        GameObject button = new GameObject();
+        button.AddComponent<RectTransform>();
+        button.GetComponent<RectTransform>().position = Vector3.zero;
+        button.transform.SetParent(canvas.transform, false);
+        button.AddComponent<Button>();
+        button.AddComponent<Text>();
+        button.name = op.Option;
+        button.GetComponent<Text>().text = op.Option;
+        button.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+        button.GetComponent<Text>().color = Color.black;
+        button.GetComponent<RectTransform>().sizeDelta = (new Vector2(100, 20));
+
+        button.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -20 - nButton * 20, 0);
+        button.GetComponent<Button>().onClick.AddListener(delegate { EnqueueDialogueAfterOption(op); });
     }
 }
