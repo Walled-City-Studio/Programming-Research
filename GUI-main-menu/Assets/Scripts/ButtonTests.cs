@@ -54,6 +54,7 @@ public class ButtonTests : MonoBehaviour
 
     public void ToMainMenu()
     {
+        Debug.Log("Start");
         startScreen.style.display = DisplayStyle.None;
         mainScreen.style.display = DisplayStyle.Flex;
     }
