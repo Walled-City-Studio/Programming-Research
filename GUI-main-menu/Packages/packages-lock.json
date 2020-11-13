@@ -80,6 +80,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.ui.runtime": {
+      "version": "0.0.4-preview",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="screen" style="height: 100%; flex-direction: row;">
+        <ui:VisualElement name="logo" style="width: auto; height: 100%; flex-direction: row; flex-shrink: 0; flex-grow: 1;" />
+        <ui:VisualElement name="menu" style="width: auto; height: 100%; flex-direction: row; flex-shrink: 0; flex-grow: 1; justify-content: flex-end; align-items: flex-end;">
+            <ui:VisualElement name="buttons" style="height: 100px; width: auto; justify-content: center; flex-shrink: 0; flex-grow: 1; align-items: center;">
+                <ui:Button text="Play" style="-unity-font: url(&apos;/Assets/TextMesh Pro/Fonts/LiberationSans.ttf&apos;);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
