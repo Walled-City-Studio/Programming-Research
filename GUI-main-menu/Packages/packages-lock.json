@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.codingwithunity.tweenlibrary": {
-      "version": "https://github.com/sniffle6/Tween-Library.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "6886ed7ca77348c9773575cdcaf15d9203442580"
-    },
     "com.unity.collab-proxy": {
       "version": "1.2.16",
       "depth": 0,
