@@ -17,6 +17,8 @@ public class UI : MonoBehaviour
     private VisualElement menuContainer;
     private VisualElement currentScreen;
 
+    enum SCREEN_KEYS {I, C, S, L, Q, O, M}
+
     private void Start()
     {
         // Set panel renderer values
@@ -54,7 +56,18 @@ public class UI : MonoBehaviour
         {
             if (!String.IsNullOrEmpty(button.viewDataKey))
             {
-                 button.clickable.clicked += delegate { SetScreen(button.viewDataKey); };
+                try
+                {
+                    bool exists = Enum.IsDefined(typeof(SCREEN_KEYS), (int)Enum.Parse(typeof(SCREEN_KEYS), button.viewDataKey));
+                    if (exists)
+                    {
+                        button.clickable.clicked += delegate { SetScreen(button.viewDataKey); };
+                    }
+                }
+                catch(ArgumentException e)
+                {
+                    Debug.Log("'" + button.name + "' view key doesn't match SCREEN_KEYS: " + e.Message);
+                }
             }
         });
     }
