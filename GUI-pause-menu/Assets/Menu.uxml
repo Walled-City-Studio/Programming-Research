@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="screen" class="screen" style="justify-content: center;">
+        <Style src="Menuss.uss" />
+        <ui:VisualElement name="menu-column" class="menu-column" style="flex-direction: column; flex-grow: 0; flex-shrink: 0;">
+            <ui:VisualElement name="menu" class="menu-window" style="background-color: rgba(0, 0, 0, 0.3); width: 100%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                <ui:Button text="I" name="I-button" class="menu-button" style="-unity-text-align: middle-center;" />
+                <ui:Button text="M" name="M-button" class="menu-button" style="-unity-text-align: middle-center;" />
+                <ui:Button text="S" name="S-button" class="menu-button" style="-unity-text-align: middle-center;" />
+                <ui:Button text="L" name="L-button" class="menu-button" style="-unity-text-align: middle-center;" />
+                <ui:Button text="Q" name="Q-button" class="menu-button" style="-unity-text-align: middle-center; padding-left: 0; padding-right: 0;" />
+                <ui:Button text="C" name="C-button" class="menu-button" style="-unity-text-align: middle-center;" />
+                <ui:Button text="O" name="O-button" class="menu-button" style="-unity-text-align: middle-center;" />
+                <ui:Button name="cl-button" class="menu-button" style="-unity-text-align: middle-center; background-image: url(&apos;/Assets/unnamed.png&apos;); align-items: center; justify-content: center; margin-right: 5px; margin-left: 5px; margin-top: 5px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-background-scale-mode: scale-to-fit; margin-bottom: 5px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="sceen-container">
+                <ui:VisualElement name="screen-inventory">
+                    <ui:Label text="Inventory" class="screen-placeholder" style="color: rgba(238, 230, 230, 255);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
