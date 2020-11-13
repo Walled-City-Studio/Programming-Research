@@ -1,48 +1,81 @@
-﻿using UnityEditor;
+﻿
+using Unity.Collections;
+using Unity.UIElements.Runtime;
 using UnityEngine;
-using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-
-namespace UIElementsExamples
+public class scri : MonoBehaviour
 {
-    public class SimpleBindingExampleUXML : EditorWindow
+
+    //UI Elements
+    private PanelRenderer panelRenderer;
+    private UQueryBuilder<VisualElement> itemUIQuery;
+
+    private UQueryBuilder<Button> but;
+
+    void Update()
     {
-        [MenuItem("Window/UIElementsExamples/Simple Binding Example UXML")]
-        public static void ShowDefaultWindow()
-        {
-            var wnd = GetWindow<SimpleBindingExampleUXML>();
-            wnd.titleContent = new GUIContent("Simple Binding UXML");
-        }
+        //Get Entities And Data
+        //var playerDirtyEntities = playerDirtyEntityQuery.ToEntityArray(Allocator.TempJob);
+        //var itemEntities = itemEntityQuery.ToEntityArray(Allocator.TempJob);
+        //var itemOwners = itemEntityQuery.ToComponentDataArray<ActorInventoryItemOwnerComponent>(Allocator.TempJob);
 
-        public void OnEnable()
-        {
-            var root = this.rootVisualElement;
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Menu.uxml");
-            visualTree.CloneTree(root);
-            rootVisualElement.Q<Button>("Q-button").text = "asd";
-            OnSelectionChange();
-        }
+        //If Inventory Updated Do Logic
+        //if (playerDirtyEntities.Length != 0)
+        //{
+        Debug.Log("asdasd");
+        //Get Panel Renderer | Get All VisualElements with "Inventory-Item" Class
+        panelRenderer = GetComponent<PanelRenderer>();
+            itemUIQuery = panelRenderer.visualTree.Query<VisualElement>(classes: "screen");
 
-        public void OnSelectionChange()
-        {
-            GameObject selectedObject = Selection.activeObject as GameObject;
-            if (selectedObject != null)
+
+        but = panelRenderer.visualTree.Query<Button>(classes: "I-button");
+
+        but.ForEach(asd => {
+            Debug.Log("123");
+            asd.text = "adsasd";
+        });
+            //Loop Through All Ivnentory Items VisualElements
+            itemUIQuery.ForEach(inventoryItemVisualElement =>
             {
-                // Create serialization object
-                SerializedObject so = new SerializedObject(selectedObject);
-                // Bind it to the root of the hierarchy. It will find the right object to bind to...
-                rootVisualElement.Bind(so);
-            }
-            else
-            {
-                // Unbind the object from the actual visual element
-                rootVisualElement.Unbind();
+                Debug.Log("asdasd");
+                //inventoryItemVisualElement.style.top = 20;
+                //if (itemUIQueryIndex < itemEntities.Length)
+                //{
+                //Get InventoryItemUISHaredComponent
+                /*       var actorInventoryItemUISharedComponent = EntityManager.GetSharedComponentData<ActorInventoryItemUISharedComponent>(itemEntities[itemUIQueryIndex]);
 
-                // Clear the TextField after the binding is removed
-                // (this code is not safe if the Q() returns null)
-                rootVisualElement.Q<Button>("Q-button").text = "asd";
-            }
-        }
+                       //Create Icon
+                       var iconVisualElement = new VisualElement();
+                       iconVisualElement.AddToClassList("Inventory-Item-Icon");
+                       iconVisualElement.style.backgroundImage = actorInventoryItemUISharedComponent.icon;
+                       inventoryItemVisualElement.Add(iconVisualElement);
+
+                       //Create Amount
+                       var amountVisualElement = new Label();
+                       amountVisualElement.AddToClassList("Inventory-Item-Amount");
+                       amountVisualElement.text = "1";
+                       inventoryItemVisualElement.Add(amountVisualElement);*/
+                //}
+                //else
+                //{
+                //Get Rid Of Icon
+           /*     if (inventoryItemVisualElement.childCount > 0)
+                        inventoryItemVisualElement.RemoveAt(0);
+
+                    //Get Rid Of Amount
+                    if (inventoryItemVisualElement.childCount > 0)
+                        inventoryItemVisualElement.RemoveAt(0);*/
+               //}
+
+                //itemUIQueryIndex++;
+            });
+        //}
+
+        //Dispose
+        //playerDirtyEntities.Dispose();
+        //itemEntities.Dispose();
+        //itemOwners.Dispose();
     }
 }
+

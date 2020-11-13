@@ -14,7 +14,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="sceen-container">
                 <ui:VisualElement name="screen-inventory">
-                    <ui:Label text="Inventory" class="screen-placeholder" style="color: rgba(238, 230, 230, 255);" />
+                    <ui:Label text="Inventory" class="screen-placeholder" style="color: rgb(238, 230, 230);" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
