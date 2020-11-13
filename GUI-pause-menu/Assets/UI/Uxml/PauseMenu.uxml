@@ -1,0 +1,47 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Template name="ScreenInventory" src="ScreenInventory.uxml" />
+    <ui:Template name="ScreenMap" src="ScreenMap.uxml" />
+    <ui:Template name="ScreenLoad" src="ScreenLoad.uxml" />
+    <ui:Template name="ScreenSave" src="ScreenSave.uxml" />
+    <ui:Template name="ScreenQuest" src="ScreenQuest.uxml" />
+    <ui:Template name="ScreenCharacter" src="ScreenCharacter.uxml" />
+    <ui:Template name="ScreenOptions" src="ScreenOptions.uxml" />
+    <ui:VisualElement name="screen" class="screen" style="justify-content: center;">
+        <Style src="/Assets/UI/Uss/PauseMenu.uss" />
+        <ui:VisualElement name="menu-column" class="menu-column" style="flex-direction: column; flex-grow: 0; flex-shrink: 0;">
+            <ui:VisualElement name="menu" class="menu-window" style="background-color: rgba(0, 0, 0, 0.3); width: 100%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                <ui:Button text="I" name="I-button" view-data-key="I" class="menu-button" style="-unity-text-align: middle-center; -unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+                <ui:Button text="M" name="M-button" view-data-key="M" class="menu-button" style="-unity-text-align: middle-center; -unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+                <ui:Button text="S" name="S-button" view-data-key="S" class="menu-button" style="-unity-text-align: middle-center; -unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+                <ui:Button text="L" name="L-button" view-data-key="L" class="menu-button" style="-unity-text-align: middle-center; -unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+                <ui:Button text="Q" name="Q-button" view-data-key="Q" class="menu-button" style="-unity-text-align: middle-center; -unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+                <ui:Button text="C" name="C-button" view-data-key="C" class="menu-button" style="-unity-text-align: middle-center; -unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+                <ui:Button text="O" name="O-button" view-data-key="O" class="menu-button" style="-unity-text-align: middle-center; -unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+                <ui:Button name="cl-button" class="menu-button" style="background-image: url(&apos;/Assets/Sprites/CloseButton.png&apos;);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="sceen-containers">
+                <ui:VisualElement name="screen-I" view-data-key="I" class="screen-container">
+                    <ui:Instance template="ScreenInventory" name="ScreenInventory" />
+                </ui:VisualElement>
+                <ui:VisualElement name="screen-M" view-data-key="M" class="screen-container">
+                    <ui:Instance template="ScreenMap" name="ScreenMap" />
+                </ui:VisualElement>
+                <ui:VisualElement name="screen-S" view-data-key="S" class="screen-container">
+                    <ui:Instance template="ScreenSave" name="ScreenSave" />
+                </ui:VisualElement>
+                <ui:VisualElement name="screen-L" view-data-key="L" class="screen-container">
+                    <ui:Instance template="ScreenLoad" name="ScreenLoad" />
+                </ui:VisualElement>
+                <ui:VisualElement name="screen-Q" view-data-key="Q" class="screen-container">
+                    <ui:Instance template="ScreenQuest" name="ScreenQuest" />
+                </ui:VisualElement>
+                <ui:VisualElement name="screen-C" view-data-key="C" class="screen-container">
+                    <ui:Instance template="ScreenCharacter" name="ScreenCharacter" />
+                </ui:VisualElement>
+                <ui:VisualElement name="screen-O" view-data-key="O" class="screen-container">
+                    <ui:Instance template="ScreenOptions" name="ScreenOptions" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
