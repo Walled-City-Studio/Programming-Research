@@ -18,15 +18,18 @@
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     border-right-color: rgb(0, 0, 0);
+    -unity-text-align: middle-center;
+    -unity-font: url('/Assets/Fonts/Teko-Regular.ttf');
 }
 
-.menu-window {
-    width: 268px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+.menu {
     flex-direction: row;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .screen {
@@ -35,9 +38,11 @@
     justify-content: space-between;
     width: 100%;
     background-color: rgba(231, 0, 0, 0.46);
+    flex-shrink: 0;
 }
 
-.menu-column {
+.menu-container {
+    flex-direction: row;
     flex-grow: 0;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.76);
@@ -63,4 +68,7 @@
 }
 
 .screen-container {
+}
+
+.screen-template {
 }

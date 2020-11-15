@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uxml: {fileID: 9197481963319205126, guid: 7e3b73b3c5c9cfe49931fd7e4eb87f21, type: 3}
-  unityStyleSheet: {fileID: 7433441132597879392, guid: 639e3eafe01c04d428a3b878f83175ce,
+  unityStyleSheet: {fileID: 1068529831357515114, guid: 7e3b73b3c5c9cfe49931fd7e4eb87f21,
     type: 3}
   stylesheets: []
   targetTexture: {fileID: 0}

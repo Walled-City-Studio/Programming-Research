@@ -1,3 +1,7 @@
+<!-- USE THIS TEMPLATE FILE FOR THE MAP SCREEN -->
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <ui:Label text="Map" style="-unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+	<ui:VisualElement name="character-screen" class="screen-body">
+		<Style src="/Assets/UI/Uss/ScreenMap.uss" />
+		<ui:Label text="Map screen placeholder" style="-unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+	</ui:VisualElement>
 </ui:UXML>
