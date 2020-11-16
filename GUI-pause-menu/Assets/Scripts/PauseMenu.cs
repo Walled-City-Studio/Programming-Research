@@ -16,14 +16,17 @@ namespace GUI
         ///     C_MENU_BUTTON type = Button
         ///     C_CLOSE_BUTTON type = Button
         ///     C_SCREEN_CONTAINER type = VisualElement
-        ///     TEMPLATE_CONTAINER type = TemplateContainer (embedded uxml)
-        ///     DEFAULT_SCREEN = VisualElement
+        ///     C_TEMPLATE_CONTAINER type = TemplateContainer (embedded uxml)
+        ///     N_DEFAULT_SCREEN = VisualElement
+        ///     
+        ///     C = Class selector
+        ///     N = Name selector
         /// </summary>
         public const string C_MENU_BUTTON = "menu-button";              
         public const string C_CLOSE_BUTTON = "close-button";
         public const string C_SCREEN_CONTAINER = "screen-container";
-        public const string TEMPLATE_CONTAINER = "screen-template";
-        public const string DEFAULT_SCREEN = "screen-I";
+        public const string C_TEMPLATE_CONTAINER = "screen-template";
+        public const string N_DEFAULT_SCREEN = "screen-I";
 
         public Button closeButton;
 
@@ -37,27 +40,28 @@ namespace GUI
         public List<TemplateContainer> screens = new List<TemplateContainer>();
 
         // Panel renderer (display UI in runtime scene) 
-        private PanelRenderer pr;
+        private PanelRenderer panelRenderer;
 
         // Virtual Tree (root) for querys
-        private VisualElement vt;
+        private VisualElement root;
 
         void Start()
         {
             // Set panel renderer values
-            pr = GetComponent<PanelRenderer>();
-            vt = pr.visualTree;
+            panelRenderer = GetComponent<PanelRenderer>();
+            root = panelRenderer.visualTree;
 
             // Set main UI elements
             try
             {
-                closeButton = vt.Query<Button>(C_CLOSE_BUTTON).First();
-                menuButtons = vt.Query<Button>(classes: C_MENU_BUTTON).ToList();
-                screenContainers = vt.Query<VisualElement>(classes: C_SCREEN_CONTAINER).ToList();
+                closeButton = root.Query<Button>(C_CLOSE_BUTTON).First();
+                menuButtons = root.Query<Button>(classes: C_MENU_BUTTON).ToList();
+                screenContainers = root.Query<VisualElement>(classes: C_SCREEN_CONTAINER).ToList();
 
                 // TODO: Hard coded, should change based on userinput (key "i" opens "inventory", "c" "character", etc.) 
                 // See: https://trello.com/c/wUNnTvBN/18-p-rebind-rebind-controls
-                currentScreen = vt.Query<VisualElement>(DEFAULT_SCREEN).First();
+                // See: https://trello.com/c/z4tsq8aW/59-pause-menu-ui-controls-toevoegen
+                currentScreen = root.Query<VisualElement>(N_DEFAULT_SCREEN).First();
             }
             catch (NullReferenceException e)
             {
@@ -86,12 +90,12 @@ namespace GUI
             try
             {
                 screens.Clear();
-                screens.AddRange(vt.Query<TemplateContainer>(classes: TEMPLATE_CONTAINER).ToList());
+                screens.AddRange(root.Query<TemplateContainer>(classes: C_TEMPLATE_CONTAINER).ToList());
             }
             catch (NullReferenceException e)
             {
                 Debug.LogError("Can't find screen template containers with classname " +
-                                "'" + TEMPLATE_CONTAINER + "'. Got error: " + e.Message);
+                                "'" + C_TEMPLATE_CONTAINER + "'. Got error: " + e.Message);
             }
 
             if (hideScreens || showCurrentScreen)
