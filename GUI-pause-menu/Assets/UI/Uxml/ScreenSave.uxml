@@ -1,0 +1,7 @@
+<!-- USE THIS TEMPLATE FILE FOR THE SAVE SCREEN -->
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+	<ui:VisualElement name="character-screen" class="screen-body">
+		<Style src="/Assets/UI/Uss/ScreenSave.uss" />
+		<ui:Label text="Save screen placeholder" style="-unity-font: url(&apos;/Assets/Fonts/Teko-Regular.ttf&apos;);" />
+	</ui:VisualElement>
+</ui:UXML>
